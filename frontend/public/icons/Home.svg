@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 80 80">
+  <circle cx="40" cy="40" r="36" fill="#1976d2"/>
+
+  <!-- House -->
+  <path d="M20 42 L40 22 L60 42 V54 H45 V42 H35 V54 H20 Z"
+        fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+</svg>
+

@@ -1,0 +1,129 @@
+@use "../base/colors" as *;
+@use "../abstracts/mixins" as *;
+
+// wrapper for title (on desktop) and search-field:
+.searchbar {
+  // MOBILE - Homepage:
+  @include flex-center;
+
+  flex-direction: row;
+  margin: 0 16px 0;
+
+  // desktop:
+  @media (min-width: 1024px) {
+    // width: 942px;
+    border-bottom: 1px solid #97979717; // thin gray line
+    transition: margin-top 0.25s ease;
+    align-self: center;
+    align-items: baseline;
+    justify-content: flex-start;
+  }
+
+  @media (min-width: 1200px) {
+    width: 1094px;      // should stay this for largest desktop resolution
+    margin: 35px auto 0;
+  }
+}
+
+// mobile categories menu:
+.searchbar-modal__categories {
+  margin-top: 64px;
+  width: 383px;
+}
+
+// search-input-div with icon, input-field and search-button:
+.search-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 345px; // mobile
+  height: 48px;
+  background-color: $white;
+  border-radius: 10px;
+
+  // desktop:
+  @media (min-width: 1024px) {
+    // width: 675px;
+    width: 830px;
+    margin-bottom: 28px;
+  }
+
+  // search icon:
+  &__img {
+    width: 16px;
+    height: 16px;
+    margin: 12px;
+    flex-shrink: 0;
+    display: block;
+
+    // desktop:
+    @media (min-width: 1024px) {
+      width: 20px;
+      height: 20px;
+      margin: 15px;
+    }
+  }
+
+  &__input {
+    border: none;
+    height: 100%;
+    width: 343px; // mobile
+    height: 48px;
+    background-color: $white;
+    @include text-style(400, 15px, 16px, -0.02px);
+    color: $dark;
+    opacity: 50%;
+    outline: none;
+    border-radius: 10px;
+
+    // desktop:
+    @media (min-width: 1024px) {
+      line-height: 20px;
+      letter-spacing: 0px;
+      width: 525px;
+    }
+  }
+}
+
+.searchterm,
+.searchterm-mobile {
+  font-size: 14px;
+  color: $blue;
+  font-weight: 500;
+}
+
+.searchterm-mobile {
+  padding-bottom: 24px;
+}
+
+.searchterm-mobile-no {
+  margin: 50px 55px 0; // central positioning
+}
+
+.searchterm-center {
+  margin: 20px auto;
+}
+
+// Desktop:
+
+@media (min-width: 1024px) {
+  .header-hidden .searchbar {
+    margin-top: calc(35px - 73px);
+  }
+
+  .searchterm,
+  .searchterm-mobile {
+    margin: 0;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .searchbar {
+    width: 960px; // width needed, otherwise the searchbar is not centered in this middle-layout
+    margin: 35px auto 0;
+  }
+  .search-field__input {
+    width: 400px;  // adjusted width of the search-input for middle layout, to keep full searchbar centered
+  }
+}

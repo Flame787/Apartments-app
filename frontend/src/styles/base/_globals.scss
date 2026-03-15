@@ -1,0 +1,36 @@
+@use "../base/colors" as *;
+
+html {
+  font-size: 16px;
+}
+
+html,
+body {
+  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: $background;
+}
+
+#root,
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app {
+  min-height: 100vh;
+  font-family: "Roboto", sans-serif;
+  background-color: $background;
+}
+
+.layout {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  margin-bottom: 50px;
+}
+
+

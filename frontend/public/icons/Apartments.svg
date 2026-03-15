@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 80 80">
+  <circle cx="40" cy="40" r="36" fill="#1976d2"/>
+
+  <!-- building -->
+  <path d="M35 55 V25 H59 V55 Z"
+        fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- windows  -->
+  <path d="M37 32 H41 M47 32 H51
+           M37 40 H41 M47 40 H51
+           M37 48 H41 M47 48 H51"
+        fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- tree-circle -->
+  <path d="M14 36 C14 24 34 24 34 36 C34 50 14 50 14 36 Z"
+        fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- tree-bottom  -->
+  <path d="M24 36 V54"
+        fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+</svg>
+
+
+
+
+

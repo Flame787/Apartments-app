@@ -1,0 +1,176 @@
+@use "../base/colors" as *;
+@use "../abstracts/mixins" as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  // height: 73px;
+  background-color: $background;
+
+  &__banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; // needed to spread components across full header-width
+  }
+  &__banner-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  &__banner-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.header__banner {
+  // COMMON FOR BOTH MOBILE AND DESKTOP:
+  background-image: url("/src/assets/images/adriatic3.jpg");
+  background-size: cover;
+  background-position: center;
+  // background-position: top;  // if neede to focus more on the top side of the picture (or bottom)
+  background-repeat: no-repeat;
+  @include flex-center;
+  flex-direction: column;
+
+  // MOBILE BANNER:
+  padding-top: 27.92%; // important to keep the aspect ratio of the picture
+}
+
+.header__banner-text1 {
+  // font-family: "Inter", sans-serif;
+  @include text-style(700, 16px, 21px, 0.12px);
+  color: $white;
+  margin-bottom: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
+  display: none;
+}
+
+.header__banner-text2 {
+  @include text-style(600, 14px, 21px, 0.12px);
+  color: $white;
+  // margin-left: 46px; // distance from the left part of the text (text1)
+  // margin-right: 350px; // total distance from the right viewport margin
+  margin-bottom: 16px;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.55);
+  text-align: center;
+  display: none;
+}
+
+.myapartments-title {
+  font-family: Inter;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 100%;
+  color: $blue;
+
+  // different padding depending on 3 different variants, where MyapartmentsTtile component is rendered:
+  &--header {
+    padding: 1.5rem 0 1.25rem 1rem;
+  }
+  &--categories {
+    margin: 111px auto 0;
+    font-size: 32px;
+  }
+  &--searchbar {
+    padding: 10px 0;
+    margin-right: 43px;
+    font-size: 32px;
+    // align-self: center;
+  }
+}
+
+.myapartments-title-span {
+  color: $dark;
+}
+
+@media (min-width: 1024px) {
+  .header {
+    // height: auto;
+
+    // Hide hamburger menu on desktop layout:
+    &__menu {
+      display: none;
+    }
+  }
+
+  // DESKTOP BANNER:
+  .header__banner {
+    flex-direction: row;
+    width: 100%;
+    padding-top: 27.92%; // important to keep the aspect ratio of the picture
+  }
+
+  .header__banner-text1 {
+    // font-family: "Inter", sans-serif;
+    @include text-style(700, 18px, 21px, 0.12px);
+    color: $white;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
+    display: block;
+  }
+
+  .header__banner-text2 {
+    @include text-style(400, 16px, 21px, 0.12px);
+    color: $white;
+    margin-left: 46px; // distance from the left part of the text (text1)
+    margin-right: 340px; // total distance from the right viewport margin
+    margin-bottom: 16px;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.55);
+    display: block;
+  }
+}
+
+// Special media queries for different mobile screen widths, to adjust the header margins for all mobile devices:
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .header__banner-text1,
+  .header__banner-text2 {
+    margin-bottom: 10px;
+  }
+  .header__banner-text1 {
+    @include text-style(600, 16px, 21px, 0.12px);
+  }
+  .header__banner-text2 {
+    @include text-style(400, 14px, 21px, 0.12px);
+  }
+}
+
+@media (min-width: 360px) and (max-width: 379px) {
+  .header {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+@media (min-width: 380px) and (max-width: 389px) {
+  .header {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+}
+
+@media (min-width: 390px) and (max-width: 399px) {
+  .header {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 415px) {
+  .header {
+    margin-left: 18px;
+    margin-right: 18px;
+  }
+}
+
+@media (min-width: 416px) and (max-width: 431px) {
+  .header {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+}

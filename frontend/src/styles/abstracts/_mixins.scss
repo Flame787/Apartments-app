@@ -1,0 +1,13 @@
+@mixin text-style( $weight, $size, $line, $spacing) {
+  font-family: "Manrope", sans-serif;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $line;
+  letter-spacing: $spacing;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

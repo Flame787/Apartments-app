@@ -1,0 +1,175 @@
+@use "../base/colors" as *;
+@use "../abstracts/mixins" as *;
+
+.header__menu {
+  width: auto;
+  margin-right: 16px;
+  margin-top: 29px;
+  margin-bottom: 24px;
+  padding: 0;
+  border: none;
+  @include flex-center;
+  cursor: pointer;
+  background: none;
+
+  &__menu img {
+    width: 24px;
+    height: 20px;
+    display: block;
+  }
+}
+
+.button-close {
+  position: absolute;
+  top: 28px;
+  right: 16px;
+  padding: 0;
+  border: none;
+  @include flex-center;
+  cursor: pointer;
+
+  &__img {
+    width: 19.8px;
+    height: 19.8px;
+  }
+}
+
+// category-buttons with icon & name:
+.button-category {
+  width: 63px;
+  height: 63px;
+  @include flex-center;
+  flex-direction: column;
+  opacity: 70%;
+  border: none;
+  background-color: $background;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover,
+  &.selected {
+    background-color: $white;
+    opacity: 1;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+  }
+
+  &:hover .button-category__title,
+  &.selected .button-category__title {
+    color: $darkblue;
+  }
+}
+
+.button-category img.active {
+  filter: brightness(0.85);
+}
+
+
+.button-category__title {
+  padding: 5px;
+  font-family: "Inter", sans-serif;
+  // font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.14px;
+  text-align: center;
+  color: $dark;
+  font-weight: 600;
+
+  @media (min-width: 1024px) {
+    font-size: 10.5px;
+    letter-spacing: 0.1px;
+    text-align: center;
+  }
+}
+
+
+// Add button-search
+
+.apartments-mobile-buttons {
+  @include flex-center;
+  flex-direction: row;
+  margin: 36px auto 24px;
+  gap: 16px;
+}
+
+.button-featured,
+.button-latest {
+  padding: 10px 16px;
+  background-color: $background;
+  color: $dark;
+  border: none;
+  @include flex-center;
+
+  border-radius: 20px;
+  cursor: pointer;
+  @include text-style(600, 16px, 20px, -0.02px);
+
+  &:hover {
+    background-color:  #9fcaf5;
+    color: $darkblue;
+  }
+  &.active {
+    background-color: #9fcaf5;
+    color: $darkblue;
+  }
+}
+
+.search-field__input-button {
+  display: none;
+
+  @media (min-width: 1024px) {
+    // because the button is visible only on deskktop version
+    display: block;
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin: auto 5px auto auto;
+    @include text-style(700, 14px, 20px, 0.2px);
+    text-align: center;
+    text-transform: uppercase;
+    color: $white;
+    background-color: $seablue;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.button-home {
+  display: block;
+  padding: 10px 16px;
+  border-radius: 6px;
+  // margin: auto 5px auto auto;
+  @include text-style(500, 15px, 20px, 0.2px);
+  text-align: center;
+  text-transform: uppercase;
+  color: $white;
+  background-color: $seablue;
+  border: none;
+  cursor: pointer;
+  margin: 20px auto 0 auto;
+}
+
+.favorite-label {
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.574);
+  color: white;
+  font-family: Inter, "sans-serif";
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeIn 0.15s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+
+.apartment-full-category .apartment-card-button {
+  background-color: $background;
+}

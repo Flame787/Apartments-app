@@ -1,0 +1,76 @@
+// Mobile first approach (max-width: 1024px):
+
+@use "../base/colors" as *;
+@use "../abstracts/mixins" as *;
+
+.categories-modal__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.categories-modal__top-div {
+  display: flex;
+  flex-direction: column;
+  // justify-content: space-around;
+  align-items: center;
+}
+
+.categories-modal__title {
+ 
+  margin-top: 111px;
+}
+
+// Mobile - categories icons:
+.categories-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  row-gap: 8px;
+  justify-content: center;
+  align-items: center;
+  margin: 36px auto 0;
+  max-width: calc(95px * 3 + 2 * 16px); // 3 icons in a row + gaps
+
+  li button {
+    width: 95px;
+    height: 95px;
+  }
+
+  // Desktop:
+  @media (min-width: 1024px) {
+    flex-direction: column;
+    gap: 0;
+    margin: 0 25px 0 0;
+    max-width: 63px;
+    margin-top: 24px;
+
+    li button {
+      width: 63px;
+      height: 63px;
+    }
+  }
+}
+
+// Modal showing after clicking on Hamburger menu- mobile version:
+.categories-modal {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: $background;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  text-align: center;
+}
+
+// Desktop view:
+
+@media (min-width: 1024px) {
+}
+
+
+
