@@ -1,7 +1,9 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { setFilteredSearch } from "../../store/filteredSearchSlice";
 import FiltersModal from "./FiltersModal";
+import CalendarModal from "./CalendarModal";
+import SearchButton from "./SearchButton";
 
 export default function SearchFilters() {
   const dispatch = useDispatch();
@@ -13,6 +15,10 @@ export default function SearchFilters() {
 
   const [debounceTimer, setDebounceTimer] = useState<number | null>(null);
 
+  const [showPersonsDropdown, setShowPersonsDropdown] = useState(false);
+
+  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
+
   const triggerSearch = useCallback(() => {
     dispatch(
       setFilteredSearch({
@@ -23,6 +29,18 @@ export default function SearchFilters() {
     );
   }, [destination, dates, persons, dispatch]);
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".search-filters-box__dropdown-wrapper")) {
+        setShowPersonsDropdown(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       triggerSearch();
@@ -32,8 +50,17 @@ export default function SearchFilters() {
     if (debounceTimer) clearTimeout(debounceTimer);
 
     const timer = setTimeout(() => {
-      triggerSearch();
-    }, 500);
+      dispatch(
+        setFilteredSearch({
+          destination,
+          dates,
+          persons,
+        }),
+      );
+    }, 500);  
+    // When user stops typing for 500ms, we don't trigger search, but change Redux state (filteredSearchSlice).
+    // Real search is triggered when user clicks on SearchButton or presses Enter 
+    // - this way we avoid triggering search on every keystroke, but still keep Redux state updated with latest input values
 
     setDebounceTimer(timer);
   };
@@ -47,29 +74,51 @@ export default function SearchFilters() {
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
           onKeyDown={handleKeyDown}
-        >
-       
-        </input>
+        ></input>
+
         <input
           className="search-filters-box__input search-filters-box__input-dates"
           placeholder="Date from - to"
           value={dates}
-          onChange={(e) => setDates(e.target.value)}
-          onKeyDown={handleKeyDown}
-        ></input>
-        <input
-          className="search-filters-box__input search-filters-box__input-persons"
-          placeholder="Nr. of persons"
-          value={persons}
-          onChange={(e) => setPersons(e.target.value)}
-          onKeyDown={handleKeyDown}
-        ></input>
+          readOnly
+          onClick={() => setIsDateModalOpen(true)}
+        />
+
+        <div className="search-filters-box__dropdown-wrapper">
+          <input
+            className="search-filters-box__input search-filters-box__input-persons"
+            placeholder="Nr. of persons"
+            value={persons}
+            readOnly
+            onClick={() => setShowPersonsDropdown((prev) => !prev)}
+            onKeyDown={handleKeyDown}
+          />
+
+          {showPersonsDropdown && (
+            <div className="search-filters-box__dropdown">
+              {[1, 2, 3, 4, 5].map((num) => (
+                <div
+                  key={num}
+                  className="search-filters-box__dropdown-item"
+                  onClick={() => {
+                    setPersons(String(num));
+                    setShowPersonsDropdown(false);
+                  }}
+                >
+                  {num}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
         <button
           className="search-filters__button"
           onClick={() => setIsModalOpen(true)}
         >
-          Add filters
+          + FILTERS
         </button>
+
+        <SearchButton onSearch={triggerSearch} />
       </div>
 
       {isModalOpen && (
@@ -85,6 +134,17 @@ export default function SearchFilters() {
               }),
             );
             setIsModalOpen(false);
+          }}
+        />
+      )}
+
+      {isDateModalOpen && (
+        <CalendarModal
+          onClose={() => setIsDateModalOpen(false)}
+          onApply={({ startDate, endDate }) => {
+            const formatted = `${startDate.toLocaleDateString("hr-HR")}-${endDate.toLocaleDateString("hr-HR")}`;
+            setDates(formatted);
+            setIsDateModalOpen(false);
           }}
         />
       )}

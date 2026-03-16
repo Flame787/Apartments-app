@@ -1,4 +1,5 @@
 import { useState } from "react";
+  import CloseButton from "./CloseButton";
 
 const toggleOptions = [
   "breakfast",
@@ -32,6 +33,7 @@ export default function FiltersModal({ onClose, onApply }: { onClose: () => void
   const [accommodation, setAccommodation] = useState("");
   const [priceRange, setPriceRange] = useState([0, 500]);
 
+
   const toggleFilter = (name: string) => {
     setToggles((prev) => ({
       ...prev,
@@ -42,9 +44,9 @@ export default function FiltersModal({ onClose, onApply }: { onClose: () => void
   return (
     <div className="filters-modal">
       <div className="filters-modal__content">
-        <button className="filters-modal__close" onClick={onClose}>
-          ✕
-        </button>
+         <div className="filters-modal__close-wrapper">
+        <CloseButton onClose={onClose} />
+        </div>
 
         <h2>Filters</h2>
 
