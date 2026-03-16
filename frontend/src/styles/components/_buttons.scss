@@ -63,7 +63,6 @@
   filter: brightness(0.85);
 }
 
-
 .button-category__title {
   padding: 5px;
   font-family: "Inter", sans-serif;
@@ -80,7 +79,6 @@
     text-align: center;
   }
 }
-
 
 // Add button-search
 
@@ -104,7 +102,7 @@
   @include text-style(600, 16px, 20px, -0.02px);
 
   &:hover {
-    background-color:  #9fcaf5;
+    background-color: #9fcaf5;
     color: $darkblue;
   }
   &.active {
@@ -114,10 +112,10 @@
 }
 
 .search-field__input-button {
-  display: none;
+  display: none; // not visible on mobile version
 
   @media (min-width: 1024px) {
-    // because the button is visible only on deskktop version
+    // visible only on desktop version
     display: block;
     padding: 10px 16px;
     border-radius: 8px;
@@ -129,6 +127,9 @@
     background-color: $seablue;
     border: none;
     cursor: pointer;
+    &:hover {
+      background: #005fcc;
+    }
   }
 }
 
@@ -169,7 +170,32 @@
   }
 }
 
-
 .apartment-full-category .apartment-card-button {
   background-color: $background;
+}
+
+.search-filters__button {
+  display: block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin: auto 5px auto auto;
+  @include text-style(700, 14px, 20px, 0.2px);
+  text-align: center;
+  text-transform: uppercase;
+  color: $white;
+  background-color: $seablue;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle-btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin: 4px;
+}
+
+.toggle-btn.active {
+  background: #0077ff;
+  color: white;
 }

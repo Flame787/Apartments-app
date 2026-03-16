@@ -9,6 +9,7 @@ import SearchBar from "../ui/SearchBar";
 import useIsMobile from "../../hooks/useIsMobile";
 import Banner from "./Banner";
 import MobileHeader from "./MobileHeader";
+import SearchFilters from "../ui/SearchFilters";
 
 
 export default function AppLayout() {
@@ -36,6 +37,7 @@ export default function AppLayout() {
 
   // const handleHeader = (visible: boolean) => setHeaderVisible(visible);
 
+
   return (
     // <div className="app">
     <div >
@@ -45,6 +47,8 @@ export default function AppLayout() {
       {!isMobile &&   <Banner />}
 
       <SearchBar />
+
+      <SearchFilters />
 
       <div className="layout">
         {/* Desktop version - left sidebar with categories picker: */}
