@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { clearSearchTerm } from "../store/searchSlice";
 
+// import { clearFilteredSearch } from "../store/filteredSearchSlice";
+
 import TopRatedWidget from "../components/apartments/TopRatedWidget";
 import FeaturedApartments from "../components/apartments/FeaturedApartments";
 import { useAllApartments } from "../hooks/useAllApartments";
@@ -16,6 +18,11 @@ export default function HomePage() {
 
   const searchTerm = useSelector((s: any) => s.search.searchTerm);
 
+  // new filtered search from SearchFilters component:
+  const filters = useSelector((s: any) => s.filteredSearch);
+
+  const { searchTriggered } = useSelector((s: any) => s.filteredSearch);
+
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
 
@@ -28,14 +35,10 @@ export default function HomePage() {
   const pages = homeQuery.data?.pages ?? [];
   const allApartments = pages.flatMap((p) => p.items);
 
-  // Search filter
-  // const filtered = allApartments.filter((apt) =>
-  //   apt.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  // );
-
   // SEARCH FILTER
-  const filtered = allApartments.filter((apt) => {
-    const q = searchTerm.toLowerCase();
+  const searchTermFiltered = allApartments.filter((apt) => {
+    const q = searchTerm?.toLowerCase() ?? "";
+    if (!q) return true;
     return (
       apt.name.toLowerCase().includes(q) ||
       apt.location.toLowerCase().includes(q) ||
@@ -44,8 +47,60 @@ export default function HomePage() {
     );
   });
 
+  // NEW FILTERED SEARCH
+
+  const fullyFiltered = searchTermFiltered.filter((apt) => {
+    // DESTINATION
+    if (filters.destination) {
+      const q = filters.destination.toLowerCase();
+      if (
+        !apt.name.toLowerCase().includes(q) &&
+        !apt.location.toLowerCase().includes(q) &&
+        !apt.category.toLowerCase().includes(q)
+      ) {
+        return false;
+      }
+    }
+
+    // PERSONS
+    if (filters.persons) {
+      if (apt.max_guests < Number(filters.persons)) return false;
+    }
+
+    // PRICE RANGE
+    if (
+      apt.price_per_night < filters.priceRange[0] ||
+      apt.price_per_night > filters.priceRange[1]
+    ) {
+      return false;
+    }
+
+    // ACCOMMODATION TYPE
+    if (filters.accommodation) {
+      if (apt.category.toLowerCase() !== filters.accommodation.toLowerCase()) {
+        return false;
+      }
+    }
+
+    // TOGGLES (amenities → ali ti ih NEMAŠ → koristiš tags!)
+    for (const key in filters.toggles) {
+      if (filters.toggles[key] === true) {
+        const tags = apt.tags?.map((t: string) => t.toLowerCase()) ?? [];
+        if (!tags.includes(key.toLowerCase())) return false;
+      }
+    }
+
+    return true;
+  });
+
   // Sort
-  const sorted = [...filtered].sort((a, b) => b.rating - a.rating);
+  const sorted = [...fullyFiltered].sort((a, b) => b.rating - a.rating);
+
+  useEffect(() => {
+    if (searchTriggered) {
+      console.log("SEARCH RESULTS:", sorted);
+    }
+  }, [sorted, searchTriggered]);
 
   // Result count
   const [resultsCount, setResultsCount] = useState<number | null>(null);

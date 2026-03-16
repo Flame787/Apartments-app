@@ -1,6 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { setFilteredSearch } from "../../store/filteredSearchSlice";
+// import { setFilteredSearch } from "../../store/filteredSearchSlice";
+import {
+  setFilteredSearch,
+  setSearchTriggered,
+} from "../../store/filteredSearchSlice";
+import { resetSearchTriggered } from "../../store/filteredSearchSlice";
+
 import FiltersModal from "./FiltersModal";
 import CalendarModal from "./CalendarModal";
 import SearchButton from "./SearchButton";
@@ -42,6 +48,7 @@ export default function SearchFilters() {
   }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    dispatch(resetSearchTriggered());
     if (e.key === "Enter") {
       triggerSearch();
       return;
@@ -57,9 +64,9 @@ export default function SearchFilters() {
           persons,
         }),
       );
-    }, 500);  
+    }, 500);
     // When user stops typing for 500ms, we don't trigger search, but change Redux state (filteredSearchSlice).
-    // Real search is triggered when user clicks on SearchButton or presses Enter 
+    // Real search is triggered when user clicks on SearchButton or presses Enter
     // - this way we avoid triggering search on every keystroke, but still keep Redux state updated with latest input values
 
     setDebounceTimer(timer);
@@ -118,7 +125,12 @@ export default function SearchFilters() {
           + FILTERS
         </button>
 
-        <SearchButton onSearch={triggerSearch} />
+        <SearchButton
+          onSearch={() => {
+            triggerSearch();
+            dispatch(setSearchTriggered());
+          }}
+        />
       </div>
 
       {isModalOpen && (
