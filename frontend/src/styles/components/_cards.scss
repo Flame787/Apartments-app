@@ -252,6 +252,77 @@
   cursor: pointer;
 }
 
+// .apartment-full-carousel {
+//   display: flex;
+//   overflow-x: auto;
+//   scroll-snap-type: x mandatory;
+//   gap: 12px;
+//   padding-bottom: 8px;
+// }
+
+// .apartment-full-carousel img {
+//   width: 100%;
+//   height: 420px;
+//   object-fit: cover;
+//   border-radius: 12px;
+//   scroll-snap-align: start;
+//   flex-shrink: 0;
+// }
+
+//------------------------------
+
+.apartment-full-picture {
+  position: relative;
+  width: 100%;
+  height: auto; /* ključno */
+  overflow: visible; /* ključno */
+}
+
+.carousel-wrapper {
+  position: relative;
+  // width: 100%;
+  // height: auto;
+  width: 654px;
+  height: 327px;
+  //  margin: 0 auto;
+}
+
+.carousel-wrapper img {
+  width: 654px;
+  height: 327px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+  // margin: 0 auto;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.45);
+  color: white;
+  border: none;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-btn.left {
+  left: 12px;
+}
+
+.carousel-btn.right {
+  right: 12px;
+}
+
 // DESKTOP:
 
 @media (min-width: 1024px) {

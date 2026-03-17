@@ -4,8 +4,8 @@ import { useState } from "react";
 const toggleOptions = [
   "breakfast",
   "parking",
-  "centre",
-  "beach",
+  "near centre",
+  "near beach",
   "pool",
   "spa",
   "nature",

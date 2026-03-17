@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import FavoriteButton from "../ui/FavoriteButton";
 import type { Apartment } from "../../types/apartment";
 import { highlightResults } from "../../utils/highlightResults";
+import { IMAGE_BASE_URL } from "../../config/constants";
 
 type ApartmentCardProps = {
   apartment: Apartment;
@@ -26,7 +27,8 @@ export default function ApartmentCard({
       <div className="apartment-card-picture" onClick={handleOpen}>
         {apartment.images?.[0] ? (
           <img
-            src={apartment.images[0]}
+            // src={apartment.images[0]}
+            src={`${IMAGE_BASE_URL}/${apartment.images[0]}`}
             alt={apartment.name}
             // loading="lazy"
             // decoding="async"
