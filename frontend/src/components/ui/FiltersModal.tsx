@@ -1,5 +1,5 @@
 import { useState } from "react";
-  import CloseButton from "./CloseButton";
+import CloseButton from "./CloseButton";
 
 const toggleOptions = [
   "breakfast",
@@ -28,11 +28,16 @@ const accommodationTypes = [
   "Hotels",
 ];
 
-export default function FiltersModal({ onClose, onApply }: { onClose: () => void; onApply: (filters: any) => void }) {
+export default function FiltersModal({
+  onClose,
+  onApply,
+}: {
+  onClose: () => void;
+  onApply: (filters: any) => void;
+}) {
   const [toggles, setToggles] = useState<Record<string, boolean>>({});
   const [accommodation, setAccommodation] = useState("");
   const [priceRange, setPriceRange] = useState([0, 500]);
-
 
   const toggleFilter = (name: string) => {
     setToggles((prev) => ({
@@ -44,11 +49,14 @@ export default function FiltersModal({ onClose, onApply }: { onClose: () => void
   return (
     <div className="filters-modal">
       <div className="filters-modal__content">
-         <div className="filters-modal__close-wrapper">
-        <CloseButton onClose={onClose} />
+        
+        <div className="filters-modal__close-wrapper">
+          <CloseButton onClose={onClose} />
         </div>
 
-        <h2>Filters</h2>
+        <div className="filters-modal__title">
+          <h2>Filters</h2>
+        </div>
 
         <div className="filters-modal__section">
           <h3>Amenities</h3>

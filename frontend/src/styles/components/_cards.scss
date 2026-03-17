@@ -252,23 +252,6 @@
   cursor: pointer;
 }
 
-// .apartment-full-carousel {
-//   display: flex;
-//   overflow-x: auto;
-//   scroll-snap-type: x mandatory;
-//   gap: 12px;
-//   padding-bottom: 8px;
-// }
-
-// .apartment-full-carousel img {
-//   width: 100%;
-//   height: 420px;
-//   object-fit: cover;
-//   border-radius: 12px;
-//   scroll-snap-align: start;
-//   flex-shrink: 0;
-// }
-
 //------------------------------
 
 .apartment-full-picture {
@@ -282,18 +265,26 @@
   position: relative;
   // width: 100%;
   // height: auto;
-  width: 654px;
-  height: 327px;
+  // width: 654px;
+  // height: 327px;
   //  margin: 0 auto;
+  // @media (min-width: 1024px) {
+  width: 343px;
+  height: 168px;
+  // }
 }
 
 .carousel-wrapper img {
-  width: 654px;
-  height: 327px;
+  // width: 654px;
+  // height: 327px;
   object-fit: cover;
   border-radius: 12px;
   display: block;
   // margin: 0 auto;
+  //  @media (min-width: 1024px) {
+  width: 343px;
+  height: 168px;
+  // }
 }
 
 .carousel-btn {
@@ -305,9 +296,9 @@
   color: white;
   border: none;
   padding: 0;
-  width: 40px;
-  height: 40px;
-  font-size: 24px;
+  width: 30px;
+  height: 30px;
+  font-size: 22px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -317,10 +308,14 @@
 
 .carousel-btn.left {
   left: 12px;
+  // padding-left: 1px;
+  padding-bottom: 1px;
 }
 
 .carousel-btn.right {
   right: 12px;
+  padding-left: 2px;
+  padding-bottom: 1px;
 }
 
 // DESKTOP:
@@ -405,6 +400,21 @@
   .apartment-card-location {
     margin-bottom: 6px;
   }
+
+  .carousel-wrapper {
+    width: 654px;
+    height: 327px;
+  }
+
+  .carousel-wrapper img {
+    width: 654px;
+    height: 327px;
+  }
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+  }
 }
 
 @media (min-width: 1024px) and (max-width: 1199px) {
@@ -422,9 +432,31 @@
   .apartment-card-category {
     width: 245px;
   }
+  .apartment-card-title {
+    font-size: 14px;
+  }
+    .apartment-card-location {
+    font-size: 12px;
+  }
 
   .toprated-apartments-widget {
     width: 270px;
+  }
+
+  .carousel-wrapper {
+    width: 590px;
+    height: 327px;
+  }
+
+  .carousel-wrapper img {
+    width: 590px;
+    height: 327px;
+  }
+  .carousel-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 22px;
+    // padding-bottom: 2px;
   }
 }
 

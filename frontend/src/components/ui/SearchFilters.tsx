@@ -118,19 +118,22 @@ export default function SearchFilters() {
             </div>
           )}
         </div>
+        <div className="both-buttons-filtered-search">
         <button
           className="search-filters__button"
           onClick={() => setIsModalOpen(true)}
         >
-          + FILTERS
+          + ADD FILTERS
         </button>
 
         <SearchButton
+          className="run-search-filtered-button"
           onSearch={() => {
             triggerSearch();
             dispatch(setSearchTriggered());
           }}
         />
+      </div>
       </div>
 
       {isModalOpen && (
