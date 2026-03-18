@@ -117,7 +117,9 @@ export default function SearchFilters() {
               ))}
             </div>
           )}
+
         </div>
+        
         <div className="both-buttons-filtered-search">
         <button
           className="search-filters__button"
