@@ -131,7 +131,7 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  
+
   & .button-close {
     padding: 2px;
     border-radius: 6px;
@@ -139,23 +139,20 @@
     transition: transform 0.15s ease;
   }
   & .button-close:hover {
-     transform: scale(1.08);
+    transform: scale(1.08);
   }
 }
 
-
 .filters-modal__title {
-margin-top: 12px;
-margin-bottom: 20px;
+  margin-top: 12px;
+  margin-bottom: 20px;
 }
 
-.filters-modal__section{
+.filters-modal__section {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-
-
 
 .search-filters-box {
   display: flex;
@@ -197,6 +194,12 @@ margin-bottom: 20px;
 
 .search-filters-box__input-destination {
   margin-top: 16px;
+  // custom arrow:
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 28px;
   @media (min-width: 1024px) {
     margin: 0 0 0 5px;
   }
@@ -214,6 +217,7 @@ margin-bottom: 20px;
   width: 93.7%;
   width: 94%;
   width: 308px;
+
   @media (min-width: 1024px) {
     width: 25%;
   }
@@ -238,6 +242,12 @@ margin-bottom: 20px;
 }
 
 .search-filters-box__input-persons {
+  // custom arrow:
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 28px;
   @media (min-width: 1024px) {
     width: 94%;
   }
@@ -253,6 +263,114 @@ margin-bottom: 20px;
 .search-filters-box__dropdown-item:hover {
   background: #ddecfe;
 }
+
+/* SELECT-BOX WRAPPER */
+.sorting-box {
+    // position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px auto;
+  padding: 10px 14px;
+  background: #ffffff;
+  // border: 1px solid #e5e7eb; /* light gray */
+  border-radius: 6px;
+  width: 343px;
+  @media (min-width: 1024px) {
+    width: fit-content;
+  }
+}
+
+// /* LABEL */
+.sorting-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563; /* gray-600 */
+}
+
+// // /* TRIGGER BUTTON */
+// .sorting-box-trigger {
+//   background: #ffffff;
+//   border: 1px solid #dcdcdc;
+//   border-radius: 8px;
+//   padding: 8px 12px;
+//   width: 180px;
+//   cursor: pointer;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   transition: border 0.15s ease;
+// }
+
+// .sorting-box-trigger:hover {
+//   border-color: #9ca3af;
+// }
+
+// /* ARROW */
+// .sorting-arrow {
+//   font-size: 12px;
+//   color: #6b7280;
+// }
+
+// /* DROPDOWN */
+// .sorting-dropdown {
+//   position: absolute;
+//   top: 42px;
+//   left: 0;
+//   background: white;
+//   border: 1px solid #dcdcdc;
+//   border-radius: 8px;
+//   width: 180px;
+//   z-index: 20;
+//   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+//   overflow: hidden;
+// }
+
+// /* ITEM */
+// .sorting-dropdown-item {
+//   padding: 10px 14px;
+//   cursor: pointer;
+//   transition: background 0.15s ease;
+// }
+
+// .sorting-dropdown-item:hover {
+//   background: #ddecfe;
+// }
+
+/* SELECT */
+.sorting-select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #e5e7eb; /* light gray */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+  width: 150px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  // custom arrow:
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 28px;
+}
+
+/* HOVER */
+// .sorting-select:hover {
+//   border-color: #9ca3af; /* gray-400 */
+// }
+
+/* FOCUS */
+// .sorting-select:focus {
+//   outline: none;
+//   // border-color: #2563eb; /* blue-600 */
+//   // box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+// }
+
 
 /* Mobile layout */
 @media (max-width: 768px) {
