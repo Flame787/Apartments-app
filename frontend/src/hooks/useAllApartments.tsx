@@ -12,18 +12,47 @@ import { getAllApartments } from "../services/apartmentsService";
 
 const PAGE_SIZE = 10;
 
-export function useAllApartments() {
+// export function useAllApartments() {
+//   return useInfiniteQuery({
+//     queryKey: ["all-apartments"],
+
+//     queryFn: ({ pageParam = 0 }) =>
+//       getAllApartments(pageParam, PAGE_SIZE),
+
+//     initialPageParam: 0,
+
+//     getNextPageParam: (lastPage, allPages) => {
+//       const loaded = allPages.length * PAGE_SIZE;
+//       if (loaded >= lastPage.total) return null;
+//       return allPages.length;
+//     },
+
+//     refetchOnMount: false,
+//     refetchOnWindowFocus: false,
+//     refetchOnReconnect: false,
+//     staleTime: Infinity,
+
+//     // optional: refresh every 5 min
+//     // refetchInterval: 5 * 60 * 1000,
+//     // refetchIntervalInBackground: true,
+//   });
+// }
+
+export function useAllApartments(allAtOnce = false) {
   return useInfiniteQuery({
-    queryKey: ["all-apartments"],
+    queryKey: ["all-apartments", allAtOnce],
 
     queryFn: ({ pageParam = 0 }) =>
-      getAllApartments(pageParam, PAGE_SIZE),
+      getAllApartments(pageParam, allAtOnce ? 9999 : PAGE_SIZE),
 
     initialPageParam: 0,
 
     getNextPageParam: (lastPage, allPages) => {
+      if (allAtOnce) return null;       // STOP infinite scroll
+
       const loaded = allPages.length * PAGE_SIZE;
       if (loaded >= lastPage.total) return null;
+
       return allPages.length;
     },
 
@@ -31,9 +60,5 @@ export function useAllApartments() {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     staleTime: Infinity,
-
-    // optional: refresh every 5 min
-    // refetchInterval: 5 * 60 * 1000,
-    // refetchIntervalInBackground: true,
   });
 }

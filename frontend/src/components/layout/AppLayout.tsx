@@ -10,14 +10,15 @@ import useIsMobile from "../../hooks/useIsMobile";
 import Banner from "./Banner";
 import MobileHeader from "./MobileHeader";
 import SearchFilters from "../ui/SearchFilters";
-
+import SortingBox from "../ui/SortingBox";
 
 export default function AppLayout() {
-  
-
   const isMobile = useIsMobile();
 
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // added sorting for SortingBox component:
+  const [sortOption, setSortOption] = useState("");
 
   // const [headerVisible, setHeaderVisible] = useState(true);
 
@@ -37,18 +38,19 @@ export default function AppLayout() {
 
   // const handleHeader = (visible: boolean) => setHeaderVisible(visible);
 
-
   return (
     // <div className="app">
-    <div >
-      {isMobile &&   <Banner />}
+    <div>
+      {isMobile && <Banner />}
       {isMobile && <MobileHeader onMenuClick={handleOpen} />}
 
-      {!isMobile &&   <Banner />}
+      {!isMobile && <Banner />}
 
       <SearchBar />
 
       <SearchFilters />
+
+      <SortingBox onSortChange={setSortOption} />
 
       <div className="layout">
         {/* Desktop version - left sidebar with categories picker: */}
@@ -56,7 +58,7 @@ export default function AppLayout() {
         {!isMobile && <CategoriesDesktop />}
 
         <main className="layout-main">
-          <Outlet />
+          <Outlet context={{ sortOption }} />
         </main>
       </div>
 

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { clearSearchTerm } from "../store/searchSlice";
 import type { RootState } from "../store/store";
 
+import { useOutletContext } from "react-router-dom"
+
 import TopRatedWidget from "../components/apartments/TopRatedWidget";
 import useIsMobile from "../hooks/useIsMobile";
 
@@ -15,6 +17,8 @@ type SelectedMobileView = "Featured" | "Latest";
 export default function FavoritesPage() {
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
+
+   const { sortOption } = useOutletContext<{ sortOption: string }>();
 
   // FAVORITES
   const favoriteApartments = useSelector(
@@ -42,9 +46,27 @@ export default function FavoritesPage() {
     );
   });
 
+    // ⬇⬇⬇ NOVO — SORTING LOGIc:
+  const sorted = [...searchFiltered].sort((a, b) => {
+    switch (sortOption) {
+      case "price":
+        return a.price_per_night - b.price_per_night;
+      case "price-desc":
+        return b.price_per_night - a.price_per_night;
+      case "rating":
+        return b.rating - a.rating;
+      case "reviews":
+        return b.reviews_count - a.reviews_count;
+      case "size":
+        return b.size_m2 - a.size_m2;
+      default:
+        return 0; // default order
+    }
+  });
+
   useEffect(() => {
-    setResultsCount(searchFiltered.length);
-  }, [searchFiltered.length]);
+    setResultsCount(sorted.length);
+  }, [sorted.length]);
 
   const [selectedMobileView, setSelectedMobileView] =
     useState<SelectedMobileView>("Featured");
@@ -120,14 +142,14 @@ export default function FavoritesPage() {
 
               {favoriteApartments.length > 0 &&
                 searchTerm &&
-                searchFiltered.length === 0 && (
+                sorted.length === 0 && (
                   <div className="apartments-mobile-featured-empty"></div>
                 )}
 
               {favoriteApartments.length > 0 &&
                 searchTerm &&
-                searchFiltered.length > 0 &&
-                searchFiltered.map((apt: Apartment) => (
+                sorted.length > 0 &&
+                sorted.map((apt: Apartment) => (
                   <ApartmentCard
                     key={apt.id}
                     apartment={apt}
@@ -196,17 +218,17 @@ export default function FavoritesPage() {
                 <div className="homepage-desktop-empty-card"></div>
               </>
 
-            ) : searchFiltered.length === 0 ? (
+            ) : sorted.length === 0 ? (
               <>
                 <div className="homepage-desktop-empty"></div>
                 <TopRatedWidget />
                 <div className="homepage-desktop-empty-card"></div>
               </>
               
-            ) : searchFiltered.length === 1 ? (
+            ) : sorted.length === 1 ? (
               <>
                 <ApartmentCard
-                  apartment={searchFiltered[0]}
+                  apartment={sorted[0]}
                   highlight={searchTerm}
                 />
                 <ApartmentPlaceholder />
@@ -214,7 +236,7 @@ export default function FavoritesPage() {
               </>
             ) : (
               <>
-                {searchFiltered.slice(0, 2).map((apt: Apartment) => (
+                {sorted.slice(0, 2).map((apt: Apartment) => (
                   <ApartmentCard
                     key={apt.id}
                     apartment={apt}
@@ -224,7 +246,7 @@ export default function FavoritesPage() {
 
                 <TopRatedWidget />
 
-                {searchFiltered.slice(2).map((apt: Apartment) => (
+                {sorted.slice(2).map((apt: Apartment) => (
                   <ApartmentCard
                     key={apt.id}
                     apartment={apt}

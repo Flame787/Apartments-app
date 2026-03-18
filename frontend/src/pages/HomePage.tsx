@@ -11,10 +11,16 @@ import { useAllApartments } from "../hooks/useAllApartments";
 import useIsMobile from "../hooks/useIsMobile";
 import ApartmentCard from "../components/apartments/ApartmentCard";
 
+import { useOutletContext } from "react-router-dom";
+
 type SelectedMobileView = "Featured" | "Latest";
 
 export default function HomePage() {
-  const homeQuery = useAllApartments(); // infinite scroll hook to fetch all apartments page by page
+  // const homeQuery = useAllApartments(); // infinite scroll hook to fetch all apartments page by page
+
+  const { sortOption } = useOutletContext<{ sortOption: string }>();
+
+  const homeQuery = useAllApartments(sortOption !== "");
 
   const searchTerm = useSelector((s: any) => s.search.searchTerm);
 
@@ -93,8 +99,28 @@ export default function HomePage() {
     return true;
   });
 
-  // Sort
-  const sorted = [...fullyFiltered].sort((a, b) => b.rating - a.rating);
+  // SORTING
+
+  // const sorted = [...fullyFiltered].sort((a, b) => b.rating - a.rating);
+
+  // const sorted = fullyFiltered;
+
+  const sorted = [...fullyFiltered].sort((a, b) => {
+    switch (sortOption) {
+      case "price":
+        return a.price_per_night - b.price_per_night;
+      case "price-desc":
+        return b.price_per_night - a.price_per_night;
+      case "rating":
+        return b.rating - a.rating;
+      case "reviews":
+        return b.reviews_count - a.reviews_count;
+      case "size":
+        return b.size_m2 - a.size_m2;
+      default:
+        return 0; // otherwise: default backend order (ID ASCENDING)
+    }
+  });
 
   useEffect(() => {
     if (searchTriggered) {
@@ -111,6 +137,7 @@ export default function HomePage() {
 
   // Infinite scroll sentinel
   useEffect(() => {
+    if (sortOption !== "") return; // NEW - disable infinite scroll when sorting
     if (!loaderRef.current) return;
     if (!homeQuery.fetchNextPage) return;
 
@@ -194,9 +221,12 @@ export default function HomePage() {
           {selectedMobileView === "Featured" && (
             <>
               <FeaturedApartments apartments={sorted} highlight={searchTerm} />
-
-              <div ref={loaderRef} style={{ height: "60px" }} />
-              {homeQuery.isFetchingNextPage && <p>Loading more...</p>}
+              {sortOption === "" && (
+                <>
+                  <div ref={loaderRef} style={{ height: "60px" }} />
+                  {homeQuery.isFetchingNextPage && <p>Loading more...</p>}
+                </>
+              )}
             </>
           )}
 
@@ -277,8 +307,12 @@ export default function HomePage() {
             />
 
             {/* SENTINEL */}
-            <div ref={loaderRef} style={{ height: "60px" }} />
-            {homeQuery.isFetchingNextPage && <p>Loading more...</p>}
+            {sortOption === "" && (
+              <>
+                <div ref={loaderRef} style={{ height: "60px" }} />
+                {homeQuery.isFetchingNextPage && <p>Loading more...</p>}
+              </>
+            )}
           </>
         )}
       </div>

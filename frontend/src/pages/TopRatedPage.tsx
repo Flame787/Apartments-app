@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 import useIsMobile from "../hooks/useIsMobile";
 import ApartmentCard from "../components/apartments/ApartmentCard";
@@ -16,6 +16,9 @@ export default function TopRatedPage() {
 
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+
+  // NEW SORTING:
+  const { sortOption } = useOutletContext<{ sortOption: string }>();
 
   // const { data } = useTopRatedApartments();
 
@@ -36,15 +39,34 @@ export default function TopRatedPage() {
     );
   });
 
+  // NEW — SORTING LOGIC:
+  const sorted = [...searchFiltered].sort((a, b) => {
+    switch (sortOption) {
+      case "price":
+        return a.price_per_night - b.price_per_night;
+      case "price-desc":
+        return b.price_per_night - a.price_per_night;
+      case "rating":
+        return b.rating - a.rating;
+      case "reviews":
+        return b.reviews_count - a.reviews_count;
+      case "size":
+        return b.size_m2 - a.size_m2;
+      default:
+        return b.rating - a.rating; // default TopRated order
+    }
+  });
+
   useEffect(() => {
-    setResultsCount(searchFiltered.length);
-  }, [searchFiltered.length]);
+    setResultsCount(sorted.length);
+  }, [sorted.length]);
 
   // SORT BY RATING DESCENDING, THEN BY REVIEWS COUNT DESCENDING:
   // const sorted = [...searchFiltered].sort((a, b) => b.rating - a.rating);
 
   // INFINITE SCROLL OBSERVER
   useEffect(() => {
+    if (sortOption !== "") return; // NEW - disable infinite scroll if sorting
     if (!loaderRef.current) return;
 
     const observer = new IntersectionObserver(
@@ -96,7 +118,7 @@ export default function TopRatedPage() {
 
           {/* LIST */}
           <div className="apartments-mobile-latest-page">
-            {searchFiltered.map((apt: Apartment) => (
+            {sorted.map((apt: Apartment) => (
               <ApartmentCard
                 key={apt.id}
                 apartment={apt}
@@ -105,9 +127,13 @@ export default function TopRatedPage() {
             ))}
 
             {/* Infinite scroll sentinel */}
-            <div ref={loaderRef} style={{ height: "60px" }} />
+            {sortOption === "" && (
+              <>
+                <div ref={loaderRef} style={{ height: "60px" }} />
 
-            {isFetchingNextPage && <p>Loading more...</p>}
+                {isFetchingNextPage && <p>Loading more...</p>}
+              </>
+            )}
           </div>
         </div>
       )}
@@ -145,7 +171,7 @@ export default function TopRatedPage() {
                 No apartments match your search.
               </div>
             ) : (
-              searchFiltered.map((apt: Apartment) => (
+              sorted.map((apt: Apartment) => (
                 <ApartmentCard
                   key={apt.id}
                   apartment={apt}
@@ -156,9 +182,13 @@ export default function TopRatedPage() {
           </div>
 
           {/* Infinite scroll sentinel */}
-          <div ref={loaderRef} style={{ height: "60px" }} />
+          {sortOption === "" && (
+            <>
+              <div ref={loaderRef} style={{ height: "60px" }} />
 
-          {isFetchingNextPage && <p>Loading more...</p>}
+              {isFetchingNextPage && <p>Loading more...</p>}
+            </>
+          )}
         </div>
       )}
     </div>

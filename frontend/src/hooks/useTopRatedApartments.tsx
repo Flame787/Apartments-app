@@ -21,6 +21,7 @@ const PAGE_SIZE = 10;
 //   });
 // }
 
+/*
 export function useTopRatedApartments() {
   return useInfiniteQuery({
     queryKey: ["top-rated-apartments"],
@@ -59,3 +60,28 @@ export function useTopRatedApartments() {
     // So we disable automatic refetching and only fetch next page when fetchNextPage is called.
   });
 }
+  */
+
+export function useTopRatedApartments(allAtOnce = false) {
+  return useInfiniteQuery({
+    queryKey: ["top-rated-apartments", allAtOnce],
+
+    queryFn: ({ pageParam = 0 }) =>
+      getTopRatedApartments(pageParam, allAtOnce ? 9999 : PAGE_SIZE),
+
+    initialPageParam: 0,
+
+    getNextPageParam: (lastPage, allPages) => {
+      if (allAtOnce) return undefined; // STOP infinite scroll
+      const loaded = allPages.length * PAGE_SIZE;
+      if (loaded >= lastPage.total) return undefined;
+      return allPages.length;
+    },
+
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    staleTime: Infinity,
+  });
+}
+

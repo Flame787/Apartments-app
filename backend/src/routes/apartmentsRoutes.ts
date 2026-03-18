@@ -25,19 +25,22 @@ const router = Router();
 // GET all apartments (paginated)
 router.get("/all", (req, res) => {
   try {
-    const page = Number(req.query.page) || 0;       // 0-based page index
+    const page = Number(req.query.page) || 0; // 0-based page index
     const pageSize = Number(req.query.pageSize) || 10;
 
-    const all = fetchAllApartments();               // full list from cache
+    const all = fetchAllApartments(); // full list from cache
+
+    // sorting on backend by ID:
+    const sorted = [...all].sort((a, b) => a.id - b.id);
 
     const start = page * pageSize;
     const end = start + pageSize;
 
-    const items = all.slice(start, end);
+    const items = sorted.slice(start, end);
 
     res.json({
       items,
-      total: all.length,
+      total: sorted.length,
       page,
       pageSize,
     });
@@ -45,7 +48,6 @@ router.get("/all", (req, res) => {
     res.status(500).json({ error: "Failed to fetch apartments" });
   }
 });
-
 
 // GET apartments by category
 router.get("/category/:category", (req, res) => {
@@ -93,23 +95,24 @@ router.get("/search", (req, res) => {
 // GET TOP-RATED apartments
 router.get("/top-rated", (req, res) => {
   try {
-    const page = Number(req.query.page) || 0;   // page number (0-based - 0 = first page, 1 = second page, etc.)
-    const pageSize = Number(req.query.pageSize) || 10;   // showing 10 items per page
+    const page = Number(req.query.page) || 0; // page number (0-based - 0 = first page, 1 = second page, etc.)
+    const pageSize = Number(req.query.pageSize) || 10; // showing 10 items per page
 
     const all = fetchAllApartments();
 
     // Sort by rating DESC, then reviews_count DESC
     const sorted = [...all].sort((a, b) => {
-      if (b.rating !== a.rating) return b.rating - a.rating;  // primary sort by rating
-      return b.reviews_count - a.reviews_count;   // secondary sort by reviews_count (if ratings are equal)
+      if (b.rating !== a.rating) return b.rating - a.rating; // primary sort by rating
+      return b.reviews_count - a.reviews_count; // secondary sort by reviews_count (if ratings are equal)
     });
 
-    const start = page * pageSize;   // calculate starting index for pagination
-    const end = start + pageSize;   // slice the sorted array to get only the items for the current page
+    const start = page * pageSize; // calculate starting index for pagination
+    const end = start + pageSize; // slice the sorted array to get only the items for the current page
 
-    const items = sorted.slice(start, end);  // get the items for the current page
+    const items = sorted.slice(start, end); // get the items for the current page
 
-    res.json({  // return the paginated results, along with total count for client-side pagination
+    res.json({
+      // return the paginated results, along with total count for client-side pagination
       items,
       total: sorted.length,
       page,

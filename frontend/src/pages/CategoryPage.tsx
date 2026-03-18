@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
 import { clearSearchTerm } from "../store/searchSlice";
 
 import TopRatedWidget from "../components/apartments/TopRatedWidget";
@@ -17,6 +17,9 @@ type SelectedMobileView = "Featured" | "Latest";
 export default function CategoryPage() {
   const isMobile = useIsMobile();
   const dispatch = useDispatch();
+
+  // NEW:
+  const { sortOption } = useOutletContext<{ sortOption: string }>();
 
   const searchTerm = useSelector((state: any) => state.search.searchTerm);
 
@@ -43,8 +46,27 @@ export default function CategoryPage() {
     );
   });
 
+  // NEW SORTING LOGIC (from SortingBox component):
+
+    const sorted = [...filtered].sort((a, b) => {
+    switch (sortOption) {
+      case "price":
+        return a.price_per_night - b.price_per_night;
+      case "price-desc":
+        return b.price_per_night - a.price_per_night;
+      case "rating":
+        return b.rating - a.rating;
+      case "reviews":
+        return b.reviews_count - a.reviews_count;
+      case "size":
+        return b.size_m2 - a.size_m2;
+      default:
+        return 0; // default backend order
+    }
+  });
+
   // Sort
-  const sorted = [...filtered].sort((a, b) => b.rating - a.rating);
+  // const sorted = [...filtered].sort((a, b) => b.rating - a.rating);
 
   // Result count
   const [resultsCount, setResultsCount] = useState<number | null>(null);
