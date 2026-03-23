@@ -36,7 +36,7 @@ export default function ApartmentPage() {
     selectedApartment.tags.some((t) => t.toLowerCase().includes(q));
 
   return (
-    <div className="homepage">
+    <div className="apartment-page">
       {/* MOBILE */}
       {isMobile && (
         <div className="homepage-mobile">

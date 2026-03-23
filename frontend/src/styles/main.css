@@ -876,6 +876,10 @@ button.rdrDay.rdrDayToday {
   border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
 }
 
+.apartment-page {
+  min-height: 100vh;
+}
+
 .apartment-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -909,7 +913,7 @@ button.rdrDay.rdrDayToday {
   line-height: 24px;
   letter-spacing: -0.15px;
   color: #1D1D1B;
-  margin-top: 12px;
+  margin-top: 24px;
   margin-bottom: 4px;
 }
 .apartment-full-picture {
@@ -952,7 +956,7 @@ button.rdrDay.rdrDayToday {
   font-size: 14px;
   line-height: 100%;
   letter-spacing: 0.12px;
-  margin: 12px auto 0 0;
+  margin: 16px auto 0 0;
   width: 100%;
   color: #1D1D1B;
 }
@@ -969,11 +973,14 @@ button.rdrDay.rdrDayToday {
   gap: 4px;
 }
 .apartment-full-description {
+  margin-top: 20px;
   font-family: "Manrope", sans-serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 100%;
   letter-spacing: 0.12px;
+  line-height: 1.6;
+  margin-bottom: 20px;
 }
 
 .tag {
@@ -1196,7 +1203,7 @@ button.rdrDay.rdrDayToday {
   align-self: center;
   flex-direction: column;
   justify-content: center;
-  margin: 20px auto;
+  margin: 28px auto 20px;
   background-color: #FFFFFF;
   border-radius: 6px;
   width: 343px;
@@ -1232,7 +1239,13 @@ button.rdrDay.rdrDayToday {
 }
 
 .search-filters-box__input-destination {
+  cursor: pointer;
   margin-top: 16px;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 28px;
 }
 @media (min-width: 1024px) {
   .search-filters-box__input-destination {
@@ -1258,6 +1271,10 @@ button.rdrDay.rdrDayToday {
   }
 }
 
+.search-filters-box__input-dates {
+  cursor: pointer;
+}
+
 .search-filters-box__dropdown {
   position: absolute;
   top: 42px;
@@ -1267,13 +1284,21 @@ button.rdrDay.rdrDayToday {
   border: 1px solid #dcdcdc;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  z-index: 20;
+  z-index: 3000;
   width: 50px;
   font-family: "Manrope", sans-serif;
   font-size: 14px;
   border-color: #A5A5A4;
 }
 
+.search-filters-box__input-persons {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 28px;
+}
 @media (min-width: 1024px) {
   .search-filters-box__input-persons {
     width: 94%;
@@ -1288,6 +1313,91 @@ button.rdrDay.rdrDayToday {
 }
 
 .search-filters-box__dropdown-item:hover {
+  background: #ddecfe;
+}
+
+/* SELECT-BOX WRAPPER */
+.sorting-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px auto;
+  padding: 0px 14px;
+  background: #ffffff;
+  border-radius: 6px;
+  width: 343px;
+  z-index: 200;
+}
+@media (min-width: 1024px) {
+  .sorting-box {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+}
+
+.sorting-label {
+  font-size: 14px;
+  font-family: "Manrope", sans-serif;
+  opacity: 70%;
+  font-weight: 400;
+}
+
+/* SELECT */
+.sorting-select {
+  font-size: 14px;
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
+  padding: 10px 14px;
+  margin: 5px 0;
+  font-size: 14px;
+  border: 1px solid #e5e7eb; /* light gray */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+  width: 170px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 28px;
+}
+
+.sorting-select__dropdown {
+  position: absolute;
+  top: 42px;
+  left: 115px;
+  right: 0;
+  background: white;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 200;
+  width: 170px;
+  font-family: "Manrope", sans-serif;
+  font-size: 14px;
+  border-color: #A5A5A4;
+}
+@media (min-width: 1024px) {
+  .sorting-select__dropdown {
+    left: 70px;
+  }
+}
+
+.sorting-select__dropdown-item {
+  padding: 10px 19px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-align: center;
+  z-index: 200;
+}
+
+.sorting-select__dropdown-item:hover {
   background: #ddecfe;
 }
 
@@ -1500,7 +1610,7 @@ button.rdrDay.rdrDayToday {
   font-size: 14px;
   font-weight: 500;
   border-top: 1px solid rgba(151, 151, 151, 0.0901960784);
-  margin: 200px 10px 0 10px;
+  margin: 0px 10px 0 10px;
 }
 @media (min-width: 1024px) {
   .footer-copyright {
