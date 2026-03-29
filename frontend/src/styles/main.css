@@ -968,8 +968,8 @@ button.rdrDay.rdrDayToday {
   line-height: 24px;
   letter-spacing: -0.15px;
   color: #1D1D1B;
-  margin-top: 24px;
-  margin-bottom: 24px;
+  margin-top: 14px;
+  margin-bottom: 14px;
 }
 .apartment-full-picture {
   height: 168px;
@@ -993,7 +993,7 @@ button.rdrDay.rdrDayToday {
   letter-spacing: -0.07px;
   color: #1D1D1B;
   color: #115ba5;
-  margin-top: 16px;
+  margin-top: 6px;
 }
 .apartment-full-category {
   margin: 12px auto 0 0;
@@ -1039,7 +1039,11 @@ button.rdrDay.rdrDayToday {
   line-height: 100%;
   letter-spacing: 0.12px;
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-top: 1px solid #A5A5A4;
+  border-bottom: 1px solid #A5A5A4;
 }
 .apartment-full-calendar {
   margin-top: 8px;
@@ -1050,7 +1054,7 @@ button.rdrDay.rdrDayToday {
 }
 
 .apartment-full-availibility {
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 .tag {

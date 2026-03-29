@@ -94,7 +94,7 @@ export default function FavoritesPage() {
               onClick={handleMobileView}
               value="Featured"
             >
-              Favorite apartments
+              Favorite accommodations
             </button>
 
             <button
@@ -135,7 +135,7 @@ export default function FavoritesPage() {
             <div className="apartments-mobile-featured">
               {favoriteApartments.length === 0 && (
                 <div className="apartments-mobile-featured-empty">
-                  <span>No favorite apartments.</span>
+                  <span>No favorite accommodations.</span>
                   <HomeButton />
                 </div>
               )}
@@ -182,11 +182,11 @@ export default function FavoritesPage() {
       {!isMobile && (
         <div>
           <div className="homepage-desktop-title">
-            {!searchTerm && "Favorite apartments"}
+            {!searchTerm && "Favorite accommodations"}
 
             {searchTerm && resultsCount !== null && resultsCount > 0 && (
               <>
-                Favorite apartments
+                Favorite accommodations
                 <span className="searchterm">
                   {" "}
                   – showing results for "{searchTerm}":
@@ -196,7 +196,7 @@ export default function FavoritesPage() {
 
             {searchTerm && resultsCount === 0 && (
               <>
-                Favorite apartments
+                Favorite accommodations
                 <span className="searchterm">
                   {" "}
                   – no results found for "{searchTerm}".
@@ -211,7 +211,7 @@ export default function FavoritesPage() {
             {favoriteApartments.length === 0 ? (
               <>
                 <div className="homepage-desktop-empty">
-                  <span>No favorite apartments.</span>
+                  <span>No favorite accommodations.</span>
                   <HomeButton />
                 </div>
                 <TopRatedWidget />

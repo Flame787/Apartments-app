@@ -87,11 +87,11 @@ export default function FullApartment({
       </div>
 
       {/* NAME */}
-      <h2 className="apartment-full-title">
+      {/* <h2 className="apartment-full-title">
         {highlight
           ? highlightResults(apartment.name, highlight)
           : apartment.name}
-      </h2>
+      </h2> */}
 
       {/* RATING */}
       <div className="apartment-full-rating">
@@ -149,6 +149,8 @@ export default function FullApartment({
           onClick={() => setIsDateModalOpen(true)}
         />
       </div>
+
+      
 
       <ProceedButton />
 

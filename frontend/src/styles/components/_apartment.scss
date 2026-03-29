@@ -46,8 +46,13 @@
     @include text-style(600, 18px, 24px, -0.15px);
     color: $dark;
 
-    margin-top: 24px;
-    margin-bottom: 24px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+
+    // padding-top: 15px;
+    // padding-bottom: 15px;
+    // border-top: 1px solid $darkgray;
+    // border-bottom: 1px solid $darkgray;
   }
   &-picture {
     height: 168px;
@@ -65,21 +70,11 @@
     border-radius: 6px;
   }
 
-  // &-time {
-  //   @include text-style(700, 12px, 16px, -0.2px);
-  //   text-transform: uppercase;
-  //   color: #1e71bb;
-  //   display: flex;
-  //   justify-content: space-between;
-  //   align-items: center;
-  //   margin: 8px auto;
-  // }
-
   &-location {
     @include text-style(400, 16px, 100%, -0.07px);
     color: $dark;
     color: $darkblue;
-    margin-top: 16px;
+    margin-top: 6px;
   }
 
   &-category {
@@ -134,7 +129,11 @@
     margin-top: 20px;
     @include text-style(400, 16px, 100%, 0.12px);
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 1px solid $darkgray;
+    border-bottom: 1px solid $darkgray;
   }
 
   &-calendar {
@@ -148,7 +147,7 @@
 }
 
 .apartment-full-availibility {
-  margin-top: 50px;
+  margin-top: 25px;
 }
 
 // list of tags (Included):
