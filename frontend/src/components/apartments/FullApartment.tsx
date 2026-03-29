@@ -29,47 +29,6 @@ export default function FullApartment({
 
   return (
     <div className="apartment-full">
-      {/* IMAGE */}
-
-      {/* <div className="apartment-full-picture desktop-only-full-picture">
-        {apartment.images?.[0] ? (
-          <img
-            // src={apartment.images[0]}
-            src={`${IMAGE_BASE_URL}/${apartment.images[0]}`}
-            alt={apartment.name}
-            loading="lazy"
-            onError={(e) => {
-              e.currentTarget.src = "/icons/no-image.png";
-              e.currentTarget.onerror = null;
-            }}
-          />
-        ) : (
-          <div className="no-image">No image available</div>
-        )}
-      </div> */}
-
-      {/* IMAGE CAROUSEL */}
-      {/* <div className="apartment-full-carousel desktop-only-full-picture">
-        {apartment.images && apartment.images.length > 0 ? (
-          apartment.images.map((img, index) => (
-            <img
-              key={index}
-              src={`${IMAGE_BASE_URL}/${img}`}
-              alt={`${apartment.name} – image ${index + 1}`}
-              loading="lazy"
-              onError={(e) => {
-                e.currentTarget.src = "/icons/no-image.png";
-                e.currentTarget.onerror = null;
-              }}
-            />
-          ))
-        ) : (
-          <div className="no-image">No image available</div>
-        )}
-      </div> */}
-
-      {/* --------------------------------------------------- */}
-
       {/* IMAGE CAROUSEL */}
       <div className="apartment-full-picture desktop-only-full-picture">
         {apartment.images?.length ? (
@@ -103,19 +62,21 @@ export default function FullApartment({
         )}
       </div>
 
-      {/* LOCATION */}
-      <div className="apartment-full-location">
-        {highlight
-          ? highlightResults(apartment.location, highlight)
-          : apartment.location}
-      </div>
-
       {/* CATEGORY + FAVORITE */}
       <div className="apartment-card-category apartment-full-category">
         {apartment.category}
         <div className="favorite-large">
           <FavoriteButton apartment={apartment} />
         </div>
+      </div>
+
+      {/* LOCATION */}
+      <div className="apartment-full-location">
+        <strong>
+          {highlight
+            ? highlightResults(apartment.location, highlight)
+            : apartment.location}
+        </strong>
       </div>
 
       {/* NAME */}
@@ -132,7 +93,7 @@ export default function FullApartment({
           alt="Top rated"
           className="rating-icon"
         />{" "}
-       <strong>{apartment.rating.toFixed(1)} </strong>{" "}
+        <strong>{apartment.rating.toFixed(1)} </strong>{" "}
         <span className="reviews">({apartment.reviews_count} reviews)</span>
       </div>
 

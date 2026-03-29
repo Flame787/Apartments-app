@@ -48,7 +48,7 @@
     color: $dark;
 
     margin-top: 24px;
-    margin-bottom: 4px;
+    margin-bottom: 24px;
   }
   &-picture {
     height: 168px;
@@ -79,6 +79,7 @@
   &-location {
     @include text-style(400, 16px, 100%, -0.07px);
     color: $dark;
+     color: $darkblue;
     margin-top: 16px;
   }
 
@@ -135,8 +136,9 @@
   margin-right: 10px;
   color: $darkblue;
   background-color: $lightblue;
-  padding: 4px 8px;
-  border-radius: 12px;
+  background-color: $widgetblue;
+  padding: 6px 8px;
+  border-radius: 6px;
 }
 
 .favorite-large {

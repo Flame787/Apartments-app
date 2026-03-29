@@ -25,6 +25,7 @@
   // }
 
   &-copyright {
+     font-family: "Manrope", sans-serif;
     // margin: 10px;
     @media (min-width: 1024px) {
       margin-top: 10px;
@@ -37,6 +38,7 @@
     font-weight: 500;
     color: $darkblue;
     text-align: center;
+     font-family: "Manrope", sans-serif;
 
     @media (min-width: 1024px) {
       margin-top: 20px;
