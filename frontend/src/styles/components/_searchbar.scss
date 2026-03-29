@@ -1,6 +1,8 @@
 @use "../base/colors" as *;
 @use "../abstracts/mixins" as *;
 
+// SEARCHBAR:
+
 // wrapper for title (on desktop) and search-field:
 .searchbar {
   // MOBILE - Homepage:
@@ -106,6 +108,8 @@
   margin: 20px auto;
 }
 
+// FILTERS-MODAL:
+
 .filters-modal {
   position: fixed;
   inset: 0;
@@ -119,7 +123,7 @@
 .filters-modal__content {
   background: white;
   padding: 24px;
-  border-radius: 12px;
+  border-radius: 10px;
   width: 480px;
   position: relative;
   display: flex;
@@ -154,16 +158,20 @@
   gap: 16px;
 }
 
+// SEARCH-FILTERS: DESTINATION, DATE, PERSONS:
+
+// main box with 3 input-fields and 2 buttons:
 .search-filters-box {
   display: flex;
-  gap: 12px;
+  // gap: 12px;
+  gap: 2%;
   align-items: center;
   align-self: center;
   flex-direction: column;
   justify-content: center;
   margin: 28px auto 20px;
   background-color: $white;
-  border-radius: 6px;
+  border-radius: 10px;
   width: 343px;
   @media (min-width: 1024px) {
     flex-direction: row;
@@ -174,25 +182,27 @@
   }
 }
 
+// each of the 3 input-fields - common style:
 .search-filters-box__input {
   // flex: 1;
   padding: 10px 14px;
   margin: 5px 0px;
   border: 1px solid #dcdcdc;
   opacity: 70%;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 14px;
   background: #fff;
   transition: border-color 0.2s ease;
-  width: 90%;
+  // width: 90%;
   width: 308px;
-   font-family: "Manrope", sans-serif;
+  font-family: "Manrope", sans-serif;
 
   @media (min-width: 1024px) {
-    width: 25%;
+    width: 23.5%;
   }
 }
 
+// INPUT-DESTINATION:
 .search-filters-box__input-destination {
   cursor: pointer;
   margin-top: 16px;
@@ -201,7 +211,9 @@
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 12px;
-  padding-right: 28px;
+  // padding-right: 28px;
+  // position: relative;
+  // width: 25%;
   @media (min-width: 1024px) {
     margin: 0 0 0 5px;
   }
@@ -212,57 +224,100 @@
   border-color: $darkgray;
 }
 
-// nr. of persons (3rd input):
-.search-filters-box__dropdown-wrapper {
+// destination, dates, nr. of persons (3 inputs):
+.search-filters-box__dropdown-wrapper-destination,
+// .search-filters-box__dropdown-wrapper-dates,
+.search-filters-box__dropdown-wrapper-persons {
   position: relative;
-  left: 1px;
-  width: 93.7%;
-  width: 94%;
+  // left: 1px;
+  // width: 93.7%;
+  // width: 94%;
   width: 308px;
 
   @media (min-width: 1024px) {
-    width: 25%;
+    margin-left: 5px;
+    width: 23.5%;
   }
 }
 
 .search-filters-box__input-dates {
+  @media (min-width: 1024px) {
+    width: 23.5%;
+    margin-right: 6px;
+  }
+}
+
+// .search-filters-box__dropdown-wrapper-destination {
+//   // margin-left: 5px;  // not needed for mobile.
+//   // width: 25%;
+// }
+
+.search-filters-box__input-dates {
   cursor: pointer;
-} 
+}
 
 // dropdown-options:
-.search-filters-box__dropdown {
+.search-filters-box__dropdown-persons,
+.search-filters-box__dropdown-destination {
   position: absolute;
   top: 42px;
   left: 0px;
   right: 0;
   background: white;
   border: 1px solid #dcdcdc;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   z-index: 3000;
-  width: 50px;
+  width: 100px;
   font-family: "Manrope", sans-serif;
   font-size: 14px;
   border-color: $darkgray;
-  
-  // padding-left: 5px;
+}
+
+.search-filters-box__dropdown-destination {
+  top: 40px;
+  left: 4px;
+}
+
+.search-filters-box__dropdown-persons {
+  width: 50px;
 }
 
 .search-filters-box__input-persons {
-  cursor: pointer;
   // custom arrow:
   background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 12px;
   padding-right: 28px;
+  cursor: pointer;
   @media (min-width: 1024px) {
-    width: 94%;
+    width: 94%; // to repeat the same gap like between 2 buttons on the right side of bar.
   }
+  // @media (min-width: 1024px) and (max-width: 1199px) {
+  //   width: 308px;
+  // }
 }
 
+.search-filters-box__input-destination {
+  // custom arrow:
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 28px;
+  cursor: pointer;
+  @media (min-width: 1024px) {
+    width: 100%; // to repeat the same gap like between 2 buttons on the right side of bar.
+  }
+  // @media (min-width: 1024px) and (max-width: 1199px) {
+  //   width: 308px;
+  // }
+}
+
+// each option in a dropdown:
 .search-filters-box__dropdown-item {
-  padding: 10px 19px;
+  padding: 6px 19px;
   cursor: pointer;
   transition: background 0.15s ease;
   text-align: center;
@@ -272,7 +327,8 @@
   background: #ddecfe;
 }
 
-/* SELECT-BOX WRAPPER */
+/* SELECT-BOX WRAPPER - sorting by default, price, rating, reviews, size */
+
 .sorting-box {
   position: relative;
   display: flex;
@@ -283,7 +339,7 @@
   padding: 0px 14px;
   // opacity: 70%;
   background: #ffffff;
-  border-radius: 6px;
+  border-radius: 10px;
   width: 343px;
   z-index: 200;
   @media (min-width: 1024px) {
@@ -306,10 +362,10 @@
   // opacity: 70%;
   font-weight: 400;
   padding: 10px 14px;
-  margin: 5px 0;
+  margin: 15px 0;
   font-size: 14px;
   border: 1px solid #e5e7eb; /* light gray */
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.15s ease;
   text-align: left;
@@ -317,12 +373,27 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  color: $darkgray;
   // custom arrow:
   background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 12px;
   padding-right: 28px;
+  @media (min-width: 1024px) {
+    margin: 5px 0;
+  }
+}
+
+.sorting-select-placeholder {
+  color: $darkgray;
+  opacity: 70%;
+}
+
+.sorting-select:focus {
+  outline: none;
+  border-color: $darkgray;
+  box-shadow: none;
 }
 
 .sorting-select__dropdown {
@@ -332,7 +403,7 @@
   right: 0;
   background: white;
   border: 1px solid #dcdcdc;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   z-index: 200;
   width: 170px;

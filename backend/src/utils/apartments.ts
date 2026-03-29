@@ -278,7 +278,7 @@ export const APARTMENTS = [
 
   {
     id: 13,
-    name: "Beachfront Rooms Coral",
+    name: "Beachfront Hotel Coral",
     location: "Baška",
     category: "Hotels",
     description:
@@ -301,7 +301,7 @@ export const APARTMENTS = [
   },
   {
     id: 14,
-    name: "Family Mobile Home Pinetree",
+    name: "Family Mobile Home Sunshine",
     location: "Biograd na Moru",
     category: "Camping",
     description: "Modern mobile home with two bedrooms and a terrace in the middle of the medditeranian forest, near beach.",

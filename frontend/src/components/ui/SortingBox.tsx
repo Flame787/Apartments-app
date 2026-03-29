@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type SortingBoxProps = {
   onSortChange: (value: string) => void;
@@ -24,6 +24,19 @@ export default function SortingBox({ onSortChange }: SortingBoxProps) {
     setShowDropdown(false);
   };
 
+  // Close dropdowns if clicked outside:
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      if (!target.closest(".sorting-box")) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   return (
     <div className="sorting-box">
       <label htmlFor="sort-select" className="sorting-label">
@@ -45,8 +58,12 @@ export default function SortingBox({ onSortChange }: SortingBoxProps) {
 
       {/* TRIGGER INPUT */}
       <input
-        className="sorting-select"
-        placeholder="Default"
+        // className="sorting-select"
+        className={
+          "sorting-select" +
+          (selectedLabel === "Default" ? " sorting-select-placeholder" : "")
+        }
+        // placeholder="Default"
         value={selectedLabel}
         readOnly
         onClick={() => setShowDropdown((prev) => !prev)}

@@ -10,6 +10,7 @@ import { resetSearchTriggered } from "../../store/filteredSearchSlice";
 import FiltersModal from "./FiltersModal";
 import CalendarModal from "./CalendarModal";
 import SearchButton from "./SearchButton";
+import getUniqueLocations from "../../utils/locations";
 
 export default function SearchFilters() {
   const dispatch = useDispatch();
@@ -19,11 +20,47 @@ export default function SearchFilters() {
   const [persons, setPersons] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // new
+  const [locations, setLocations] = useState<string[]>([]);
+  const [showLocationsDropdown, setShowLocationsDropdown] = useState(false);
+
   const [debounceTimer, setDebounceTimer] = useState<number | null>(null);
 
   const [showPersonsDropdown, setShowPersonsDropdown] = useState(false);
 
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
+
+  // new - load locations once:
+  useEffect(() => {
+    const locs = getUniqueLocations();
+    setLocations(locs);
+  }, []);
+
+  // Filter locations based on user input:
+  const filteredLocations = locations.filter((loc) =>
+    loc.toLowerCase().includes(destination.toLowerCase()),
+  );
+
+  // Close dropdowns if clicked outside:
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // if (!target.closest(".search-filters-box__dropdown-wrapper")) {
+      //   setShowPersonsDropdown(false);
+      // }
+      if (!target.closest(".search-filters-box__dropdown-wrapper-persons")) {
+        setShowPersonsDropdown(false);
+      }
+      if (
+        !target.closest(".search-filters-box__dropdown-wrapper-destination")
+      ) {
+        setShowLocationsDropdown(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   const triggerSearch = useCallback(() => {
     dispatch(
@@ -34,18 +71,6 @@ export default function SearchFilters() {
       }),
     );
   }, [destination, dates, persons, dispatch]);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest(".search-filters-box__dropdown-wrapper")) {
-        setShowPersonsDropdown(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     dispatch(resetSearchTriggered());
@@ -75,14 +100,41 @@ export default function SearchFilters() {
   return (
     <>
       <div className="search-filters-box">
-        <input
-          className="search-filters-box__input search-filters-box__input-destination"
-          placeholder="Destination"
-          value={destination}
-          onChange={(e) => setDestination(e.target.value)}
-          onKeyDown={handleKeyDown}
-        ></input>
+        {/* DESTINATION AUTOCOMPLETE */}
+        <div className="search-filters-box__dropdown-wrapper-destination">
+          <input
+            className="search-filters-box__input  search-filters-box__input-destination"
+            placeholder="Destination"
+            value={destination}
+            onChange={(e) => {
+              setDestination(e.target.value);
+              setShowLocationsDropdown(true);
+              console.log(destination);
+            }}
+            onKeyDown={handleKeyDown}
+            onClick={() => setShowLocationsDropdown(true)}
+          />
 
+          {showLocationsDropdown && filteredLocations.length > 0 && (
+            <div className="search-filters-box__dropdown-destination">
+              {filteredLocations.map((loc) => (
+                <div
+                  key={loc}
+                  className="search-filters-box__dropdown-item "
+                  onClick={() => {
+                    setDestination(loc);
+                    setShowLocationsDropdown(false);
+                  }}
+                >
+                  {loc}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* DATE PICKER */}
+        {/* <div className="search-filters-box__dropdown-wrapper-dates"> */}
         <input
           className="search-filters-box__input search-filters-box__input-dates"
           placeholder="Date from - to"
@@ -90,8 +142,10 @@ export default function SearchFilters() {
           readOnly
           onClick={() => setIsDateModalOpen(true)}
         />
+        {/* </div> */}
 
-        <div className="search-filters-box__dropdown-wrapper">
+        {/* NR. OF PERSONS */}
+        <div className="search-filters-box__dropdown-wrapper-persons">
           <input
             className="search-filters-box__input search-filters-box__input-persons"
             placeholder="Nr. of persons"
@@ -102,7 +156,7 @@ export default function SearchFilters() {
           />
 
           {showPersonsDropdown && (
-            <div className="search-filters-box__dropdown">
+            <div className="search-filters-box__dropdown-persons">
               {[1, 2, 3, 4, 5].map((num) => (
                 <div
                   key={num}
@@ -117,25 +171,24 @@ export default function SearchFilters() {
               ))}
             </div>
           )}
-
         </div>
-        
-        <div className="both-buttons-filtered-search">
-        <button
-          className="search-filters__button"
-          onClick={() => setIsModalOpen(true)}
-        >
-          + ADD FILTERS
-        </button>
 
-        <SearchButton
-          className="run-search-filtered-button"
-          onSearch={() => {
-            triggerSearch();
-            dispatch(setSearchTriggered());
-          }}
-        />
-      </div>
+        <div className="both-buttons-filtered-search">
+          <button
+            className="search-filters__button"
+            onClick={() => setIsModalOpen(true)}
+          >
+            + ADD FILTERS
+          </button>
+
+          <SearchButton
+            className="run-search-filtered-button"
+            onSearch={() => {
+              triggerSearch();
+              dispatch(setSearchTriggered());
+            }}
+          />
+        </div>
       </div>
 
       {isModalOpen && (

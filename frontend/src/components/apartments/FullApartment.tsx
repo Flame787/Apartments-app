@@ -3,6 +3,8 @@ import type { Apartment } from "../../types/apartment";
 import { highlightResults } from "../../utils/highlightResults";
 import FavoriteButton from "../ui/FavoriteButton";
 import { IMAGE_BASE_URL } from "../../config/constants";
+import CalendarModal from "../ui/CalendarModal";
+import ProceedButton from "../ui/ProceedButton";
 
 export default function FullApartment({
   apartment,
@@ -12,6 +14,11 @@ export default function FullApartment({
   highlight?: string;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // state for opening/closing Calendar and selecting dates:
+  const [selectedDates, setSelectedDates] = useState("");
+
+  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
 
   const hasMultipleImages = apartment.images && apartment.images.length > 1;
 
@@ -128,6 +135,33 @@ export default function FullApartment({
           ? highlightResults(apartment.description, highlight)
           : apartment.description}
       </div>
+
+      {/* AVALIBILITY */}
+      <div className="apartment-full-availibility">
+        <strong>Select dates (check-in — check-out): </strong>
+      </div>
+      <div className="apartment-full-calendar">
+        <input
+          className="search-filters-box__input search-filters-box__input-dates"
+          placeholder="Date from - to"
+          value={selectedDates}
+          readOnly
+          onClick={() => setIsDateModalOpen(true)}
+        />
+      </div>
+
+      <ProceedButton />
+
+      {isDateModalOpen && (
+        <CalendarModal
+          onClose={() => setIsDateModalOpen(false)}
+          onApply={({ startDate, endDate }) => {
+            const formatted = `${startDate.toLocaleDateString("hr-HR")}-${endDate.toLocaleDateString("hr-HR")}`;
+            setSelectedDates(formatted);
+            setIsDateModalOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 }

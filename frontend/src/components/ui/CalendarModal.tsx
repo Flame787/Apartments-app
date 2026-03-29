@@ -20,8 +20,7 @@ export default function CalendarModal({
   return (
     <div className="filters-modal">
       <div className="filters-modal__content">
-
-        <div className="filters-modal__close-wrapper">
+        <div className="filters-modal__close-wrapper filters-modal__close-calendar">
           <CloseButton onClose={onClose} />
         </div>
 
@@ -35,7 +34,7 @@ export default function CalendarModal({
         />
 
         <button
-          className="filters-modal__apply"
+          className="filters-modal__apply "
           onClick={() =>
             onApply({
               startDate: range[0].startDate,

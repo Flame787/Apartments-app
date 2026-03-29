@@ -100,6 +100,41 @@ body {
   font-weight: 100 900;
   src: url("/assets/fonts/InterVariable.woff2") format("woff2-variations");
 }
+/* Manrope – Light 300 */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 300;
+  src: url("/assets/fonts/Manrope-Light.ttf") format("truetype");
+}
+/* Manrope – Regular 400 */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/assets/fonts/Manrope-Regular.ttf") format("truetype");
+}
+/* Manrope – Medium 500 */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  src: url("/assets/fonts/Manrope-Medium.ttf") format("truetype");
+}
+/* Manrope – Bold 700 */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  src: url("/assets/fonts/Manrope-Bold.ttf") format("truetype");
+}
+/* Manrope – ExtraBold 800 */
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 800;
+  src: url("/assets/fonts/Manrope-ExtraBold.ttf") format("truetype");
+}
 .header__menu {
   width: auto;
   margin-right: 16px;
@@ -405,6 +440,17 @@ button.rdrDay.rdrDayToday {
   position: absolute;
   top: 12px;
   right: 12px;
+}
+
+.filters-modal__close-calendar .button-close {
+  position: absolute;
+  top: 12px;
+  right: 11px;
+}
+
+.proceed-button {
+  margin-top: 20px;
+  margin-left: 0;
 }
 
 .apartments-mobile-featured,
@@ -723,6 +769,12 @@ button.rdrDay.rdrDayToday {
   padding-bottom: 1px;
 }
 
+.apartment-full-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
 @media (min-width: 1024px) {
   .apartment-card-title {
     font-family: "Manrope", sans-serif;
@@ -804,6 +856,10 @@ button.rdrDay.rdrDayToday {
     height: 40px;
     font-size: 24px;
   }
+  .toprated-location {
+    margin-top: 0px;
+    margin-left: 13px;
+  }
 }
 @media (min-width: 1024px) and (max-width: 1199px) {
   .apartment-card,
@@ -851,14 +907,13 @@ button.rdrDay.rdrDayToday {
   .apartment-card-rating {
     margin-top: 22px;
   }
+  .toprated-location {
+    margin-top: 4px;
+    margin-left: 17px;
+  }
 }
 .toprated-title {
   margin-top: 15px;
-}
-
-.toprated-location {
-  margin-top: 0px;
-  margin-left: 12px;
 }
 
 .toprated-rating {
@@ -914,7 +969,7 @@ button.rdrDay.rdrDayToday {
   letter-spacing: -0.15px;
   color: #1D1D1B;
   margin-top: 24px;
-  margin-bottom: 4px;
+  margin-bottom: 24px;
 }
 .apartment-full-picture {
   height: 168px;
@@ -937,6 +992,7 @@ button.rdrDay.rdrDayToday {
   line-height: 100%;
   letter-spacing: -0.07px;
   color: #1D1D1B;
+  color: #115ba5;
   margin-top: 16px;
 }
 .apartment-full-category {
@@ -950,15 +1006,18 @@ button.rdrDay.rdrDayToday {
   text-justify: inter-word;
   width: 343px;
 }
-.apartment-full-rating, .apartment-full-price, .apartment-full-size, .apartment-full-guests, .apartment-full-tags, .apartment-full-description {
+.apartment-full-rating, .apartment-full-price, .apartment-full-size, .apartment-full-guests, .apartment-full-tags, .apartment-full-description, .apartment-full-availibility {
   font-family: "Manrope", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 100%;
   letter-spacing: 0.12px;
-  margin: 16px auto 0 0;
+  margin: 16px auto 0 4px;
   width: 100%;
   color: #1D1D1B;
+}
+.apartment-full-rating, .apartment-full-guests, .apartment-full-tags, .apartment-full-description, .apartment-full-availibility {
+  margin-left: 0px;
 }
 .apartment-full-price, .apartment-full-size {
   margin: 24px auto 0 0;
@@ -982,6 +1041,17 @@ button.rdrDay.rdrDayToday {
   line-height: 1.6;
   margin-bottom: 20px;
 }
+.apartment-full-calendar {
+  margin-top: 8px;
+  margin-left: 0px;
+}
+.apartment-full-calendar .search-filters-box__input {
+  width: 200px;
+}
+
+.apartment-full-availibility {
+  margin-top: 50px;
+}
 
 .tag {
   font-family: "Manrope", sans-serif;
@@ -992,8 +1062,9 @@ button.rdrDay.rdrDayToday {
   margin-right: 10px;
   color: #115ba5;
   background-color: #B4D6F4;
-  padding: 4px 8px;
-  border-radius: 12px;
+  background-color: #ddecfe;
+  padding: 6px 8px;
+  border-radius: 6px;
 }
 
 .favorite-large .apartment-card-icon {
@@ -1162,7 +1233,7 @@ button.rdrDay.rdrDayToday {
 .filters-modal__content {
   background: white;
   padding: 24px;
-  border-radius: 12px;
+  border-radius: 10px;
   width: 480px;
   position: relative;
   display: flex;
@@ -1198,14 +1269,14 @@ button.rdrDay.rdrDayToday {
 
 .search-filters-box {
   display: flex;
-  gap: 12px;
+  gap: 2%;
   align-items: center;
   align-self: center;
   flex-direction: column;
   justify-content: center;
   margin: 28px auto 20px;
   background-color: #FFFFFF;
-  border-radius: 6px;
+  border-radius: 10px;
   width: 343px;
 }
 @media (min-width: 1024px) {
@@ -1225,16 +1296,16 @@ button.rdrDay.rdrDayToday {
   margin: 5px 0px;
   border: 1px solid #dcdcdc;
   opacity: 70%;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 14px;
   background: #fff;
   transition: border-color 0.2s ease;
-  width: 90%;
   width: 308px;
+  font-family: "Manrope", sans-serif;
 }
 @media (min-width: 1024px) {
   .search-filters-box__input {
-    width: 25%;
+    width: 23.5%;
   }
 }
 
@@ -1245,7 +1316,6 @@ button.rdrDay.rdrDayToday {
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 12px;
-  padding-right: 28px;
 }
 @media (min-width: 1024px) {
   .search-filters-box__input-destination {
@@ -1258,16 +1328,23 @@ button.rdrDay.rdrDayToday {
   border-color: #A5A5A4;
 }
 
-.search-filters-box__dropdown-wrapper {
+.search-filters-box__dropdown-wrapper-destination,
+.search-filters-box__dropdown-wrapper-persons {
   position: relative;
-  left: 1px;
-  width: 93.7%;
-  width: 94%;
   width: 308px;
 }
 @media (min-width: 1024px) {
-  .search-filters-box__dropdown-wrapper {
-    width: 25%;
+  .search-filters-box__dropdown-wrapper-destination,
+  .search-filters-box__dropdown-wrapper-persons {
+    margin-left: 5px;
+    width: 23.5%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .search-filters-box__input-dates {
+    width: 23.5%;
+    margin-right: 6px;
   }
 }
 
@@ -1275,29 +1352,39 @@ button.rdrDay.rdrDayToday {
   cursor: pointer;
 }
 
-.search-filters-box__dropdown {
+.search-filters-box__dropdown-persons,
+.search-filters-box__dropdown-destination {
   position: absolute;
   top: 42px;
   left: 0px;
   right: 0;
   background: white;
   border: 1px solid #dcdcdc;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   z-index: 3000;
-  width: 50px;
+  width: 100px;
   font-family: "Manrope", sans-serif;
   font-size: 14px;
   border-color: #A5A5A4;
 }
 
+.search-filters-box__dropdown-destination {
+  top: 40px;
+  left: 4px;
+}
+
+.search-filters-box__dropdown-persons {
+  width: 50px;
+}
+
 .search-filters-box__input-persons {
-  cursor: pointer;
   background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 12px;
   padding-right: 28px;
+  cursor: pointer;
 }
 @media (min-width: 1024px) {
   .search-filters-box__input-persons {
@@ -1305,8 +1392,22 @@ button.rdrDay.rdrDayToday {
   }
 }
 
+.search-filters-box__input-destination {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  padding-right: 28px;
+  cursor: pointer;
+}
+@media (min-width: 1024px) {
+  .search-filters-box__input-destination {
+    width: 100%;
+  }
+}
+
 .search-filters-box__dropdown-item {
-  padding: 10px 19px;
+  padding: 6px 19px;
   cursor: pointer;
   transition: background 0.15s ease;
   text-align: center;
@@ -1316,7 +1417,7 @@ button.rdrDay.rdrDayToday {
   background: #ddecfe;
 }
 
-/* SELECT-BOX WRAPPER */
+/* SELECT-BOX WRAPPER - sorting by default, price, rating, reviews, size */
 .sorting-box {
   position: relative;
   display: flex;
@@ -1326,7 +1427,7 @@ button.rdrDay.rdrDayToday {
   margin: 20px auto;
   padding: 0px 14px;
   background: #ffffff;
-  border-radius: 6px;
+  border-radius: 10px;
   width: 343px;
   z-index: 200;
 }
@@ -1350,10 +1451,10 @@ button.rdrDay.rdrDayToday {
   font-family: "Manrope", sans-serif;
   font-weight: 400;
   padding: 10px 14px;
-  margin: 5px 0;
+  margin: 15px 0;
   font-size: 14px;
   border: 1px solid #e5e7eb; /* light gray */
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.15s ease;
   text-align: left;
@@ -1361,11 +1462,28 @@ button.rdrDay.rdrDayToday {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  color: #A5A5A4;
   background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 12px;
   padding-right: 28px;
+}
+@media (min-width: 1024px) {
+  .sorting-select {
+    margin: 5px 0;
+  }
+}
+
+.sorting-select-placeholder {
+  color: #A5A5A4;
+  opacity: 70%;
+}
+
+.sorting-select:focus {
+  outline: none;
+  border-color: #A5A5A4;
+  box-shadow: none;
 }
 
 .sorting-select__dropdown {
@@ -1375,7 +1493,7 @@ button.rdrDay.rdrDayToday {
   right: 0;
   background: white;
   border: 1px solid #dcdcdc;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   z-index: 200;
   width: 170px;
@@ -1612,6 +1730,9 @@ button.rdrDay.rdrDayToday {
   border-top: 1px solid rgba(151, 151, 151, 0.0901960784);
   margin: 0px 10px 0 10px;
 }
+.footer-copyright {
+  font-family: "Manrope", sans-serif;
+}
 @media (min-width: 1024px) {
   .footer-copyright {
     margin-top: 10px;
@@ -1623,6 +1744,7 @@ button.rdrDay.rdrDayToday {
   font-weight: 500;
   color: #115ba5;
   text-align: center;
+  font-family: "Manrope", sans-serif;
 }
 @media (min-width: 1024px) {
   .footer-message {
