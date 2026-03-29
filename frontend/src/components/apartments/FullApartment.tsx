@@ -11,8 +11,6 @@ export default function FullApartment({
   apartment: Apartment;
   highlight?: string;
 }) {
-
-
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const hasMultipleImages = apartment.images && apartment.images.length > 1;
@@ -32,7 +30,7 @@ export default function FullApartment({
   return (
     <div className="apartment-full">
       {/* IMAGE */}
-      
+
       {/* <div className="apartment-full-picture desktop-only-full-picture">
         {apartment.images?.[0] ? (
           <img
@@ -70,9 +68,7 @@ export default function FullApartment({
         )}
       </div> */}
 
-
-{/* --------------------------------------------------- */}
-
+      {/* --------------------------------------------------- */}
 
       {/* IMAGE CAROUSEL */}
       <div className="apartment-full-picture desktop-only-full-picture">
@@ -107,7 +103,6 @@ export default function FullApartment({
         )}
       </div>
 
-
       {/* LOCATION */}
       <div className="apartment-full-location">
         {highlight
@@ -132,7 +127,12 @@ export default function FullApartment({
 
       {/* RATING */}
       <div className="apartment-full-rating">
-        ⭐ {apartment.rating.toFixed(1)}{" "}
+        <img
+          src="/icons/toprated-small.svg"
+          alt="Top rated"
+          className="rating-icon"
+        />{" "}
+       <strong>{apartment.rating.toFixed(1)} </strong>{" "}
         <span className="reviews">({apartment.reviews_count} reviews)</span>
       </div>
 

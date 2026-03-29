@@ -35,7 +35,7 @@ export default function TopRatedTitle({
           alt="Top rated"
           className="rating-icon"
         />{" "}
-        {apartment.rating.toFixed(1)} ({apartment.reviews_count})
+        <strong>{apartment.rating.toFixed(1)}</strong> ({apartment.reviews_count})
       </div>
     </div>
   );

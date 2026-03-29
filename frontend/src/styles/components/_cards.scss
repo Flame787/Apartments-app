@@ -318,6 +318,12 @@
   padding-bottom: 1px;
 }
 
+.apartment-full-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
 // DESKTOP:
 
 @media (min-width: 1024px) {
@@ -435,7 +441,7 @@
   .apartment-card-title {
     font-size: 14px;
   }
-    .apartment-card-location {
+  .apartment-card-location {
     font-size: 12px;
   }
 

@@ -84,7 +84,7 @@ export default function ApartmentCard({
                 alt="Top rated"
                 className="rating-icon"
               />{" "}
-              {apartment.rating.toFixed(1)}{" "}
+              <strong>{apartment.rating.toFixed(1)}{" "}</strong>
               <span className="reviews">({apartment.reviews_count})</span>
             </div>
 
