@@ -17,24 +17,22 @@ git clone https://github.com/Flame787/Apartments-app.git
 
 - Install dependencies in both 'frontend' and 'backend' folder:
 
+```bash
+# Terminal 1 - Frontend
 cd frontend
 npm install
 
-(cd ..)
-
+# Terminal 2 - Backend
 cd backend
 npm install
-
+```
 
 # Run the app locally:
 
 ```bash
 # Terminal 1 - Frontend
-cd frontend
-npm install
 npm run dev
 
 # Terminal 2 - Backend
-cd backend
-npm install
 npm run dev
+```
