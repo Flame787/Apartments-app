@@ -28,12 +28,13 @@ npm install
 
 # Run the app locally:
 
-- Navigate to frontend in one terminal:
-
+```bash
+# Terminal 1 - Frontend
 cd frontend
+npm install
 npm run dev
 
-- Navigate to backend in another terminal:
-
+# Terminal 2 - Backend
 cd backend
+npm install
 npm run dev
