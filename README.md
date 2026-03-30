@@ -11,7 +11,9 @@ Backend: Node.js, Express.js
 
 # Installation:
 
+```bash
 git clone https://github.com/Flame787/Apartments-app.git
+```
 
 - Open the folder where you installed the code.  
 
