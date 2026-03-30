@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CloseButton from "./CloseButton";
+import PriceSlider from "./PriceSlider";
 
 const toggleOptions = [
   "breakfast",
@@ -37,7 +38,30 @@ export default function FiltersModal({
 }) {
   const [toggles, setToggles] = useState<Record<string, boolean>>({});
   const [accommodation, setAccommodation] = useState("");
-  const [priceRange, setPriceRange] = useState([0, 500]);
+
+  // const [priceRange, setPriceRange] = useState([0, 500]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
+
+  const [showAccommodationDropdown, setShowAccommodationDropdown] =
+    useState(false);
+
+  // Close dropdowns if clicked outside:
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // if (!target.closest(".search-filters-box__dropdown-wrapper")) {
+      //   setShowPersonsDropdown(false);
+      // }
+      if (
+        !target.closest(".search-filters-box__dropdown-wrapper-accommodation")
+      ) {
+        setShowAccommodationDropdown(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   const toggleFilter = (name: string) => {
     setToggles((prev) => ({
@@ -49,7 +73,6 @@ export default function FiltersModal({
   return (
     <div className="filters-modal">
       <div className="filters-modal__content">
-        
         <div className="filters-modal__close-wrapper">
           <CloseButton onClose={onClose} />
         </div>
@@ -75,42 +98,78 @@ export default function FiltersModal({
 
         <div className="filters-modal__section">
           <h3>Accommodation type</h3>
-          <select
-            value={accommodation}
-            onChange={(e) => setAccommodation(e.target.value)}
-          >
-            <option value="">Any</option>
-            {accommodationTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+
+          {/* Accommodation type dropdown */}
+          <div className="search-filters-box__dropdown-wrapper-accommodation">
+            <input
+              className="search-filters-box__input  search-filters-box__input-accommodation"
+              placeholder="Accommodation type"
+              value={accommodation}
+              onChange={(e) => {
+                setAccommodation(e.target.value);
+                setShowAccommodationDropdown(true);
+              }}
+              onClick={() => setShowAccommodationDropdown(true)}
+            />
+
+            {showAccommodationDropdown && (
+              <div className="search-filters-box__dropdown-accommodation">
+                {accommodationTypes.map((acc) => (
+                  <div
+                    key={acc}
+                    className="search-filters-box__dropdown-item "
+                    onClick={() => {
+                      setAccommodation(acc);
+                      setShowAccommodationDropdown(false);
+                    }}
+                  >
+                    {acc}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="filters-modal__section">
           <h3>Price range</h3>
-          <input
-            type="range"
-            min="0"
-            max="1000"
-            value={priceRange[0]}
-            onChange={(e) =>
-              setPriceRange([Number(e.target.value), priceRange[1]])
-            }
-          />
-          <input
-            type="range"
-            min="0"
-            max="1000"
-            value={priceRange[1]}
-            onChange={(e) =>
-              setPriceRange([priceRange[0], Number(e.target.value)])
-            }
-          />
-          <div>
+
+          <PriceSlider priceRange={priceRange} setPriceRange={setPriceRange} />
+
+          {/* <div className="price-slider">
+            <div
+              className="price-slider__track"
+              style={{
+                left: `${(priceRange[0] / 1000) * 100}%`,
+                right: `${100 - (priceRange[1] / 1000) * 100}%`,
+              }}
+            />
+
+            <input
+              type="range"
+              min="0"
+              max="1000"
+              value={priceRange[0]}
+              onChange={(e) =>
+                setPriceRange([Number(e.target.value), priceRange[1]])
+              }
+              className="thumb thumb--left"
+            />
+            <input
+              type="range"
+              min="0"
+              max="1000"
+              value={priceRange[1]}
+              onChange={(e) =>
+                setPriceRange([priceRange[0], Number(e.target.value)])
+              }
+              className="thumb thumb--right"
+            />
+          </div>*/}
+
+          {/* <div className="price-values">
             {priceRange[0]} € – {priceRange[1]} €
-          </div>
+          </div> */}
         </div>
 
         <button
