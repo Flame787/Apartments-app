@@ -132,7 +132,7 @@
 
   @media (min-width: 1024px) {
     flex-direction: row;
-    gap: 20px;
+    gap: 16px;
     width: 25%;
   }
 }
@@ -146,6 +146,7 @@
   padding: 10px 16px;
   border-radius: 8px;
   margin: auto 5px auto auto;
+  // margin: auto;
   @include text-style(700, 14px, 20px, 0.2px);
   text-align: center;
   text-transform: uppercase;
@@ -223,6 +224,7 @@
   transition: transform 0.15s ease;
   @media (min-width: 1024px) {
     margin: auto 5px auto auto;
+    margin: auto;
   }
 }
 

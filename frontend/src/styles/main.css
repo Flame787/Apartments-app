@@ -272,7 +272,7 @@ body {
 @media (min-width: 1024px) {
   .both-buttons-filtered-search {
     flex-direction: row;
-    gap: 20px;
+    gap: 16px;
     width: 25%;
   }
 }
@@ -368,6 +368,7 @@ body {
 @media (min-width: 1024px) {
   .search-filters__button {
     margin: auto 5px auto auto;
+    margin: auto;
   }
 }
 
@@ -1340,7 +1341,6 @@ button.rdrDay.rdrDayToday {
 @media (min-width: 1024px) {
   .search-filters-box__dropdown-wrapper-destination,
   .search-filters-box__dropdown-wrapper-persons {
-    margin-left: 5px;
     width: 23.5%;
   }
 }
@@ -1348,7 +1348,7 @@ button.rdrDay.rdrDayToday {
 @media (min-width: 1024px) {
   .search-filters-box__input-dates {
     width: 23.5%;
-    margin-right: 6px;
+    margin-right: 0px;
   }
 }
 
@@ -1392,7 +1392,7 @@ button.rdrDay.rdrDayToday {
 }
 @media (min-width: 1024px) {
   .search-filters-box__input-persons {
-    width: 94%;
+    width: 100%;
   }
 }
 
@@ -1406,7 +1406,7 @@ button.rdrDay.rdrDayToday {
 }
 @media (min-width: 1024px) {
   .search-filters-box__input-destination {
-    width: 100%;
+    width: 98%;
   }
 }
 
