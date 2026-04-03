@@ -1,4 +1,6 @@
-import { Slider, SliderTrack, SliderThumb } from "react-aria-components";
+// import { Slider, SliderTrack, SliderThumb } from "react-aria-components";
+
+import * as Slider from "@radix-ui/react-slider";
 
 interface PriceSliderProps {
   priceRange: [number, number];
@@ -11,24 +13,21 @@ export default function PriceSlider({
 }: PriceSliderProps) {
   return (
     <div className="price-slider-wrapper">
-      <Slider
-        value={priceRange}
-        // onChange={setPriceRange}
-        // value={{ start: priceRange[0], end: priceRange[1] }}
-        // onChange={(v) => setPriceRange([v.start, v.end])}
-        onChange={(v) => setPriceRange(v as [number, number])}
-        minValue={0}
-        maxValue={1000}
-        step={1}
+      <Slider.Root
         className="price-slider"
+        value={priceRange}
+        onValueChange={(v) => setPriceRange(v as [number, number])}
+        min={0}
+        max={1000}
+        step={1}
       >
-        <SliderTrack className="track">
-          <div className="track-fill" />
-        </SliderTrack>
+        <Slider.Track className="price-slider__track">
+          <Slider.Range className="price-slider__range" />
+        </Slider.Track>
 
-        <SliderThumb index={0} className="thumb" />
-        <SliderThumb index={1} className="thumb" />
-      </Slider>
+        <Slider.Thumb className="price-slider__thumb" aria-label="Minimum price" />
+        <Slider.Thumb className="price-slider__thumb" aria-label="Maximum price" />
+      </Slider.Root>
 
       <div className="price-values">
         {priceRange[0]} € – {priceRange[1]} €

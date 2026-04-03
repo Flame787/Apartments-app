@@ -349,114 +349,61 @@
   background: #ddecfe;
 }
 
-/*  PRICE SLIDER:  */
-
-// .price-slider {
-//   position: relative;
-//   width: 100%;
-//   height: 40px;
-// }
-
-// .price-slider input[type="range"] {
-//   position: absolute;
-//   left: 0;
-//   top: 0;
-//   width: 100%;
-//   pointer-events: none;
-//   appearance: none;
-//   -webkit-appearance: none;
-//   background: none;
-// }
-
-// .price-slider input[type="range"]::-webkit-slider-thumb {
-//   pointer-events: all;
-//   width: 18px;
-//   height: 18px;
-//   border-radius: 50%;
-//   background: #007bff;
-//   cursor: pointer;
-//   -webkit-appearance: none;
-//   z-index: 10;
-// }
-
-// blue track (custom selected range):
-// .price-slider__track {
-//   position: absolute;
-//   height: 4px;
-//   background: #007bff;
-//   top: 50%;
-//   transform: translateY(-50%);
-//   border-radius: 2px;
-//   z-index: 10;
-// }
-
-// gray track (total length of the slider):
-// .price-slider input[type="range"]::-webkit-slider-runnable-track {
-//   height: 4px;
-//   background: #ddd;
-//   border-radius: 2px;
-//   position: relative;
-//   top: 50%;
-//   transform: translateY(-50%);
-// }
-
-// .price-values {
-//   text-align: center;
-//   margin-bottom: 10px;
-// }
-
-// React Aria Components library for Price range slider:
+/*  PRICE SLIDER - Radix UI:  */
+// npm install @radix-ui/react-slider
 
 .price-slider-wrapper {
   margin-top: 10px;
+  margin-bottom: 20px;
   // width: 432px;
-}
-
-.price-slider {
-  width: 432px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-   --slider-offset: 24px; /* (480 - 432) / 2 */
-}
-
-
-.track {
-  display: flex;
-  align-items: center;
-  height: 4px;
-  background: #ddd;
-  border-radius: 2px;
-  position: relative;
-  // width: 432px;
-}
-
-.track-fill {
-  position: absolute;
-  // height: 4px;
-  background: #007bff;
-  border-radius: 2px;
-  // inset: 0 var(--track-inset-end) 0 var(--track-inset-start);
-  inset: 0 calc(var(--track-inset-end) + var(--slider-offset))
-         0 calc(var(--track-inset-start) + var(--slider-offset));
-}
-
-.thumb {
-  left: calc(var(--slider-thumb-position) + var(--slider-offset));
-  width: 18px;
-  height: 18px;
-  background: #007bff;
-  border-radius: 50%;
-  cursor: pointer;
-  // position: absolute;
-  transform: translateX(-50%); /* center on X axis */
-  z-index: 10;
 }
 
 .price-values {
   text-align: center;
-  margin-top: 15px;
-  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+.price-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 24px;
+}
+
+.price-slider__track {
+  position: relative;
+  flex-grow: 1;
+  height: 4px;
+  background: #e5e5e5;
+  border-radius: 9999px;
+}
+
+// visible line (0-1000):
+.price-slider__range {
+  position: absolute;
+  height: 100%;
+  background: $seablue;
+  border-radius: 9999px;
+}
+
+.price-slider__thumb {
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: $seablue;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.price-slider__thumb:hover {
+  transform: scale(1.15);
+}
+
+.price-slider__thumb:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.15);
 }
 
 /* SELECT-BOX WRAPPER - sorting by default, price, rating, reviews, size */

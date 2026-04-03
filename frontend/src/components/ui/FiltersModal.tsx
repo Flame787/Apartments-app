@@ -89,6 +89,7 @@ export default function FiltersModal({
                 key={opt}
                 className={`toggle-btn ${toggles[opt] ? "active" : ""}`}
                 onClick={() => toggleFilter(opt)}
+                aria-label={`Toggle ${opt}`}
               >
                 {opt}
               </button>
