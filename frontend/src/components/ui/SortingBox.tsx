@@ -38,9 +38,10 @@ export default function SortingBox({ onSortChange }: SortingBoxProps) {
   }, []);
 
   return (
+    <div className="sorting-box-wrapper"> 
     <div className="sorting-box">
       <label htmlFor="sort-select" className="sorting-label">
-        Sort by
+        <strong>Sort by</strong>
       </label>
 
       {/* <select
@@ -82,6 +83,7 @@ export default function SortingBox({ onSortChange }: SortingBoxProps) {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 }

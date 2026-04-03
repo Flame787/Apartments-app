@@ -10,7 +10,7 @@
 
   &-title {
     @include text-style(600, 18px, 24px, -0.15px);
-    margin-top: 24px;
+    margin-top: 28px;
     margin-bottom: 16px;
     color: $dark;
   }
@@ -26,6 +26,10 @@
     }
   }
 }
+
+// .layout {
+//   border-top: 1px solid rgba(151, 151, 151, 0.0901960784);
+// }
 
 .apartments-mobile-featured-empty span {
   display: block;
@@ -58,7 +62,7 @@ mark {
 .myapartments-title {
   cursor: pointer;
   color: #5496d8;
-    // font-family: "Noto Sans Display", sans-serif;
+  // font-family: "Noto Sans Display", sans-serif;
   // font-size: 22px;
   font-weight: 900;
   // opacity: 0.7;

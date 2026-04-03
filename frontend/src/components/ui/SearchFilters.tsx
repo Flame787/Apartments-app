@@ -30,9 +30,9 @@ export default function SearchFilters() {
 
   const [isDateModalOpen, setIsDateModalOpen] = useState(false);
 
-  // new - load locations once:
+  // new - load locations -> fetching all locations from helper-file and saving them into state - happens once, when component mounts
   useEffect(() => {
-    const locs = getUniqueLocations();
+    const locs = getUniqueLocations();  
     setLocations(locs);
   }, []);
 
@@ -200,7 +200,7 @@ export default function SearchFilters() {
                 destination,
                 dates,
                 persons,
-                ...filters,
+                ...filters,   // adds filters to search terms
               }),
             );
             setIsModalOpen(false);

@@ -8,13 +8,15 @@
   // MOBILE - Homepage:
   @include flex-center;
 
+  border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
+
   flex-direction: row;
   margin: 0 16px 0;
 
   // desktop:
   @media (min-width: 1024px) {
     // width: 942px;
-    border-bottom: 1px solid #97979717; // thin gray line
+    // border-bottom: 1px solid #97979717; // thin gray line
     transition: margin-top 0.25s ease;
     align-self: center;
     align-items: baseline;
@@ -40,15 +42,18 @@
   align-items: center;
   justify-content: flex-start;
   width: 345px; // mobile
-  height: 48px;
+  height: 50px;
   background-color: $white;
+  background-color: #ddecfe;
   border-radius: 10px;
+  margin-top: 20px;
 
   // desktop:
   @media (min-width: 1024px) {
     // width: 675px;
     width: 830px;
-    margin-bottom: 28px;
+    margin-bottom: 30px;
+    margin-top: 0px;
   }
 
   // search icon:
@@ -69,22 +74,26 @@
 
   &__input {
     border: none;
-    height: 100%;
+    // height: 100%;
     width: 343px; // mobile
-    height: 48px;
+    width: 90%;
+    // height: 48px;
     background-color: $white;
     @include text-style(400, 15px, 16px, -0.02px);
     color: $dark;
-    opacity: 70%;
+    // opacity: 70%;
     outline: none;
     border-radius: 10px;
+    margin: 15px 45px 15px 15px;
+    padding: 10px 14px;
+
     // border: 1px solid #dcdcdc;
 
     // desktop:
     @media (min-width: 1024px) {
       line-height: 20px;
       letter-spacing: 0px;
-      width: 525px;
+      // width: 525px;
     }
   }
 }
@@ -169,10 +178,12 @@
   align-self: center;
   flex-direction: column;
   justify-content: center;
-  margin: 28px auto 20px;
+  margin: 30px auto 20px;
   background-color: $white;
+  background-color: #ddecfe;
   border-radius: 10px;
   width: 343px;
+
   @media (min-width: 1024px) {
     flex-direction: row;
     width: 1100px;
@@ -188,7 +199,7 @@
   padding: 10px 14px;
   margin: 5px 0px;
   border: 1px solid #dcdcdc;
-  opacity: 70%;
+  // opacity: 70%;
   border-radius: 10px;
   font-size: 14px;
   background: #fff;
@@ -281,12 +292,18 @@
 }
 
 .search-filters-box__dropdown-destination {
-  top: 40px;
-  left: 4px;
+  width: 150px;
+  top: 56px;
+  left: 0px;
+  @media (min-width: 1024px) {
+    top: 40px;
+    left: 4px;
+  }
 }
 
 .search-filters-box__dropdown-persons {
   width: 50px;
+  top: 45px;
 }
 
 .search-filters-box__dropdown-accommodation {
@@ -408,19 +425,31 @@
 
 /* SELECT-BOX WRAPPER - sorting by default, price, rating, reviews, size */
 
+.sorting-box-wrapper {
+  max-width: 1094px;
+  margin: 20px auto 0;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
+}
+
 .sorting-box {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin: 20px auto;
+  margin: 0px auto 10px;
   padding: 0px 14px;
   // opacity: 70%;
   background: #ffffff;
   border-radius: 10px;
   width: 343px;
   z-index: 200;
+  background-color: #ddecfe;
+  color: #115ba5;
+  // border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
+
   @media (min-width: 1024px) {
     width: fit-content;
   }
@@ -443,7 +472,7 @@
   padding: 10px 14px;
   margin: 15px 0;
   font-size: 14px;
-  border: 1px solid #e5e7eb; /* light gray */
+  border: 1px solid #e5e7eb00; /* light gray */ // -> changed to fully transparent, invisible border
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -452,7 +481,8 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  color: $darkgray;
+  color: #6a6a6a;
+
   // custom arrow:
   background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
   background-repeat: no-repeat;
@@ -465,8 +495,8 @@
 }
 
 .sorting-select-placeholder {
-  color: $darkgray;
-  opacity: 70%;
+  color: rgb(120, 120, 120);
+  // opacity: 70%;
 }
 
 .sorting-select:focus {
@@ -477,7 +507,7 @@
 
 .sorting-select__dropdown {
   position: absolute;
-  top: 42px;
+  top: 54px;
   left: 115px;
   right: 0;
   background: white;
@@ -489,9 +519,11 @@
   font-family: "Manrope", sans-serif;
   font-size: 14px;
   border-color: $darkgray;
+  color: black;
 
   @media (min-width: 1024px) {
-    left: 70px;
+    left: 76px;
+    top: 46px;
   }
 }
 
