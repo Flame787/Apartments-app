@@ -16,7 +16,7 @@ export type Apartment = {
   price_per_night: number;
   max_guests: number;
   availability: string;
-  rating: number;        
+  rating: number;
   reviews_count: number;
 };
 
@@ -30,13 +30,15 @@ const CATEGORIES = [
   "Hotels",
 ];
 
-
 let cache: Apartment[] | null = null;
 let cacheTime = 0;
-const CACHE_TTL = 1000 * 60 * 10;     // 10 min
+const CACHE_TTL = 1000 * 60 * 10; // 10 min
 
 
-// Fetch all apartments:
+/************* Helper-functions -> will be exported to apartmentsRoutes.ts, to build the API-routes: ****************/
+
+
+// Fetch all apartments (from cache or new request):
 
 export function fetchAllApartments(): Apartment[] {
   const now = Date.now();
@@ -55,6 +57,7 @@ export function fetchAllApartments(): Apartment[] {
 
 export function fetchApartmentsByCategory(category: string): Apartment[] {
   const all = fetchAllApartments();
+  // filtering all apartments by category (returning if they match the category):
   return all.filter((apt) => apt.category === category);
 }
 
@@ -62,21 +65,21 @@ export function fetchApartmentsByCategory(category: string): Apartment[] {
 
 export function fetchApartmentById(id: number): Apartment | undefined {
   const all = fetchAllApartments();
+  // finding a specific apartment by matching id:
   return all.find((apt) => apt.id === id);
 }
 
-// Search (optional):
+// Search (if a searchTerm is provided):
 
 export function searchApartments(query: string): Apartment[] {
   const all = fetchAllApartments();
   const q = query.toLowerCase();
-
+// filtering apartments by searchTerm, if it's included in name, location, category or tags:
   return all.filter(
     (apt) =>
       apt.name.toLowerCase().includes(q) ||
       apt.location.toLowerCase().includes(q) ||
       apt.category.toLowerCase().includes(q) ||
-      apt.tags.some((tag) => tag.toLowerCase().includes(q)),
+      apt.tags.some((tag) => tag.toLowerCase().includes(q)),   // not sure if needed here, because on HomePage tags are not displayed.
   );
 }
-

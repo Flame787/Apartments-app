@@ -2,110 +2,87 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { clearSearchTerm } from "../store/searchSlice";
 
-// import { clearFilteredSearch } from "../store/filteredSearchSlice";
+import { clearFilteredSearch } from "../store/filteredSearchSlice";
 
 import TopRatedWidget from "../components/apartments/TopRatedWidget";
 import FeaturedApartments from "../components/apartments/FeaturedApartments";
-import { useAllApartments } from "../hooks/useAllApartments";
-
-import useIsMobile from "../hooks/useIsMobile";
 import ApartmentCard from "../components/apartments/ApartmentCard";
 
+import { useAllApartments } from "../hooks/useAllApartments";
+import { useFilteredApartments } from "../hooks/useFilteredApartments";
+
+import useIsMobile from "../hooks/useIsMobile";
 import { useOutletContext } from "react-router-dom";
+import type { Apartment } from "../types/apartment";
 
 type SelectedMobileView = "Featured" | "Latest";
 
 export default function HomePage() {
   // const homeQuery = useAllApartments(); // infinite scroll hook to fetch all apartments page by page
 
-  const { sortOption } = useOutletContext<{ sortOption: string }>();
-
-  const homeQuery = useAllApartments(sortOption !== "");
-
-  const searchTerm = useSelector((s: any) => s.search.searchTerm);
-
-  // new filtered search from SearchFilters component:
-  const filters = useSelector((s: any) => s.filteredSearch);
-
-  const { searchTriggered } = useSelector((s: any) => s.filteredSearch);
-
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
+  const loaderRef = useRef(null);
+
+  // getting sort-option from Outlet context (set in App.tsx):
+  const { sortOption } = useOutletContext<{ sortOption: string }>();
+
+  // infinite scroll hook to fetch all apartments page by page:
+  const homeQuery = useAllApartments(sortOption !== "");
+
+  // global search term from searchSlice (set in SearchBar component):
+  const searchTerm = useSelector((s: any) => s.search.searchTerm);
+  // s - state, s.search - searchSlice, s.search.searchTerm - searchTerm from searchSlice
+
+  // new filtered search from SearchFilters component, it uses redux-state "filteredSearchSlice" (results are filtered on backend):
+  const filters = useSelector((s: any) => s.filteredSearch);
+  // s - state, s.filteredSearch - filteredSearchSlice, s.filteredSearch - all filter values from filteredSearchSlice (destination, dates, persons, toggles, accommodation, priceRange)
+  const { searchTriggered } = useSelector((s: any) => s.filteredSearch);
 
   const [selectedMobileView, setSelectedMobileView] =
     useState<SelectedMobileView>("Featured");
 
-  const loaderRef = useRef(null);
+  // new - backend search custom hook "useFilteredApartments" - it uses filters from filteredSearchSlice
+  const { data: filteredData } = useFilteredApartments(
+    filters,
+    searchTriggered,
+  );
 
-  // Flatten all pages
+  // clean filters when HomePage-component is loaded again, or when user returns back from Home:
+  useEffect(() => {
+    dispatch(clearFilteredSearch());
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearFilteredSearch());
+    };
+  }, []);
+
+  // Flatten all pages (received from useAllApartments infinite scroll custom hook) into a single array of apartments:
   const pages = homeQuery.data?.pages ?? [];
   const allApartments = pages.flatMap((p) => p.items);
 
-  // SEARCH FILTER
-  const searchTermFiltered = allApartments.filter((apt) => {
-    const q = searchTerm?.toLowerCase() ?? "";
-    if (!q) return true;
+  // choose data source:
+  // const results = searchTriggered ? (filteredData?.items ?? []) : allApartments;
+  const baseResults = searchTriggered
+    ? (filteredData?.items ?? [])
+    : allApartments;
+
+
+  // LOCAL searchTerm filtering (global search):
+  const searchTermFiltered = baseResults.filter((apt: Apartment) => {
+    if (!searchTerm) return true;
+    const q = searchTerm.toLowerCase();
     return (
       apt.name.toLowerCase().includes(q) ||
       apt.location.toLowerCase().includes(q) ||
-      apt.category.toLowerCase().includes(q) ||
-      apt.tags.some((tag: any) => tag.toLowerCase().includes(q))
+      apt.category.toLowerCase().includes(q)
+      // || apt.tags?.some((tag) => tag.toLowerCase().includes(q))
     );
   });
 
-  // NEW FILTERED SEARCH
-
-  const fullyFiltered = searchTermFiltered.filter((apt) => {
-    // DESTINATION
-    if (filters.destination) {
-      const q = filters.destination.toLowerCase();
-      if (
-        !apt.name.toLowerCase().includes(q) &&
-        !apt.location.toLowerCase().includes(q) &&
-        !apt.category.toLowerCase().includes(q)
-      ) {
-        return false;
-      }
-    }
-
-    // PERSONS
-    if (filters.persons) {
-      if (apt.max_guests < Number(filters.persons)) return false;
-    }
-
-    // PRICE RANGE
-    if (
-      apt.price_per_night < filters.priceRange[0] ||
-      apt.price_per_night > filters.priceRange[1]
-    ) {
-      return false;
-    }
-
-    // ACCOMMODATION TYPE
-    if (filters.accommodation) {
-      if (apt.category.toLowerCase() !== filters.accommodation.toLowerCase()) {
-        return false;
-      }
-    }
-
-    // TOGGLES (amenities → ali ti ih NEMAŠ → koristiš tags!)
-    for (const key in filters.toggles) {
-      if (filters.toggles[key] === true) {
-        const tags = apt.tags?.map((t: string) => t.toLowerCase()) ?? [];
-        if (!tags.includes(key.toLowerCase())) return false;
-      }
-    }
-
-    return true;
-  });
-
-  // SORTING
-
-  // const sorted = [...fullyFiltered].sort((a, b) => b.rating - a.rating);
-
-  // const sorted = fullyFiltered;
-
-  const sorted = [...fullyFiltered].sort((a, b) => {
+  const sorted = [...searchTermFiltered].sort((a, b) => {
     switch (sortOption) {
       case "price":
         return a.price_per_night - b.price_per_night;
@@ -122,25 +99,17 @@ export default function HomePage() {
     }
   });
 
-  useEffect(() => {
-    if (searchTriggered) {
-      console.log("SEARCH RESULTS:", sorted);
-    }
-  }, [sorted, searchTriggered]);
-
   // Result count
-  const [resultsCount, setResultsCount] = useState<number | null>(null);
+  const resultsCount = sorted.length;
 
+  // 🔥 INFINITE SCROLL (* only disabled when searching)
   useEffect(() => {
-    setResultsCount(sorted.length);
-  }, [sorted.length]);
-
-  // Infinite scroll sentinel
-  useEffect(() => {
-    if (sortOption !== "") return; // NEW - disable infinite scroll when sorting
+    if (searchTriggered) return; // disable infinite scroll during search
+    if (sortOption !== "") return;
     if (!loaderRef.current) return;
     if (!homeQuery.fetchNextPage) return;
 
+    // if previously defined if-conditions weren't met, then infinite scroll works as intended:
     const observer = new IntersectionObserver(
       (entries) => {
         if (
@@ -152,11 +121,17 @@ export default function HomePage() {
         }
       },
       { threshold: 0.1, rootMargin: "200px" },
+      // this will trigger the fetch when the loader is within 200px of the viewport, giving a smoother loading experience
     );
 
     observer.observe(loaderRef.current);
     return () => observer.disconnect();
-  }, [homeQuery.hasNextPage, homeQuery.isFetchingNextPage]);
+  }, [
+    searchTriggered,
+    sortOption,
+    homeQuery.hasNextPage,
+    homeQuery.isFetchingNextPage,
+  ]);
 
   // Placeholder component for empty states
   function ApartmentPlaceholder() {

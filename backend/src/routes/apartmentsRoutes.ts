@@ -38,6 +38,7 @@ router.get("/all", (req, res) => {
 
     const items = sorted.slice(start, end);
 
+    // res.json is used to send a JSON response back to the client. Here, it sends an object:
     res.json({
       items,
       total: sorted.length,
@@ -92,7 +93,7 @@ router.get("/search", (req, res) => {
   }
 });
 
-// GET TOP-RATED apartments
+// GET TOP-RATED apartments (paginated)
 router.get("/top-rated", (req, res) => {
   try {
     const page = Number(req.query.page) || 0; // page number (0-based - 0 = first page, 1 = second page, etc.)
@@ -120,6 +121,83 @@ router.get("/top-rated", (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch top-rated apartments" });
+  }
+});
+
+// additional filtering (from SearchFilters) moved on backend:
+
+router.get("/filter", (req, res) => {
+  try {
+    const {
+      destination,
+      minPrice,
+      maxPrice,
+      persons,
+      amenities,
+      category,
+      page = 0,
+      pageSize = 10,
+    } = req.query;
+
+    let results = fetchAllApartments();
+
+    // destination
+    if (destination && typeof destination === "string") {
+      const dest = destination.toLowerCase();
+      results = results.filter((apt) =>
+        apt.location.toLowerCase().includes(dest),
+      );
+    }
+
+    // price range
+    if (minPrice) {
+      results = results.filter(
+        (apt) => apt.price_per_night >= Number(minPrice),
+      );
+    }
+    if (maxPrice) {
+      results = results.filter(
+        (apt) => apt.price_per_night <= Number(maxPrice),
+      );
+    }
+
+    // nr. of persons
+    if (persons) {
+      results = results.filter((apt) => apt.max_guests >= Number(persons));
+    }
+
+    // category
+    if (category && typeof category === "string") {
+      results = results.filter((apt) => apt.category === category);
+    }
+
+    // amenities (tags)
+    if (amenities && typeof amenities === "string") {
+      const required = amenities.split(",").map((a) => a.trim().toLowerCase());
+      results = results.filter((apt) =>
+        required.every(
+          (
+            am, // every - determins if all the members of an array satisfy the specified condition
+          ) => apt.tags.map((t) => t.toLowerCase()).includes(am),
+        ),
+      );
+    }
+
+    // pagination
+    const start = Number(page) * Number(pageSize);
+    const end = start + Number(pageSize);
+
+    const paginated = results.slice(start, end);
+
+    res.json({
+      items: paginated,
+      total: results.length,
+      page: Number(page),
+      pageSize: Number(pageSize),
+    });
+    
+  } catch (err) {
+    res.status(500).json({ error: "Failed to filter apartments" });
   }
 });
 

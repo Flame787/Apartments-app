@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 import {
   setFilteredSearch,
   setSearchTriggered,
+  // resetSearchTriggered,
 } from "../../store/filteredSearchSlice";
-import { resetSearchTriggered } from "../../store/filteredSearchSlice";
 
 import FiltersModal from "./FiltersModal";
 import CalendarModal from "./CalendarModal";
@@ -18,21 +18,20 @@ export default function SearchFilters() {
   const [destination, setDestination] = useState("");
   const [dates, setDates] = useState("");
   const [persons, setPersons] = useState("");
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
 
   // new
   const [locations, setLocations] = useState<string[]>([]);
   const [showLocationsDropdown, setShowLocationsDropdown] = useState(false);
+  const [showPersonsDropdown, setShowPersonsDropdown] = useState(false);
 
   const [debounceTimer, setDebounceTimer] = useState<number | null>(null);
 
-  const [showPersonsDropdown, setShowPersonsDropdown] = useState(false);
-
-  const [isDateModalOpen, setIsDateModalOpen] = useState(false);
-
   // new - load locations -> fetching all locations from helper-file and saving them into state - happens once, when component mounts
   useEffect(() => {
-    const locs = getUniqueLocations();  
+    const locs = getUniqueLocations();
     setLocations(locs);
   }, []);
 
@@ -70,10 +69,11 @@ export default function SearchFilters() {
         persons,
       }),
     );
+    dispatch(setSearchTriggered());
   }, [destination, dates, persons, dispatch]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    dispatch(resetSearchTriggered());
+    // dispatch(resetSearchTriggered());
     if (e.key === "Enter") {
       triggerSearch();
       return;
@@ -184,8 +184,9 @@ export default function SearchFilters() {
           <SearchButton
             className="run-search-filtered-button"
             onSearch={() => {
-              triggerSearch();
-              dispatch(setSearchTriggered());
+              triggerSearch(); // saves filtered queries and tags
+
+              // dispatch(setSearchTriggered());
             }}
           />
         </div>
@@ -200,9 +201,10 @@ export default function SearchFilters() {
                 destination,
                 dates,
                 persons,
-                ...filters,   // adds filters to search terms
+                ...filters, // adds filters to search terms
               }),
             );
+            dispatch(setSearchTriggered());
             setIsModalOpen(false);
           }}
         />

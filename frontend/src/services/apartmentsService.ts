@@ -44,3 +44,29 @@ export async function getTopRatedApartments(page: number, pageSize: number) {
   );
   return res.json();
 }
+
+export async function getFilteredApartments(filters: any) {
+  const params = new URLSearchParams();
+
+  if (filters.destination) params.append("destination", filters.destination);
+  if (filters.persons) params.append("persons", filters.persons);
+  if (filters.priceRange) {
+    params.append("minPrice", filters.priceRange[0]);
+    params.append("maxPrice", filters.priceRange[1]);
+  }
+  if (filters.accommodation) params.append("category", filters.accommodation);
+
+  if (filters.toggles) {
+    const amenities = Object.keys(filters.toggles)
+      .filter((k) => filters.toggles[k])
+      .join(",");
+    if (amenities) params.append("amenities", amenities);
+  }
+
+  // pagination (optional) - not needed on frontend
+  // params.append("page", "0");
+  // params.append("pageSize", "1000");
+
+  const res = await fetch(`${BASE_URL}/filter?${params.toString()}`);
+  return res.json();
+}
