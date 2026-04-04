@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { clearSearchTerm } from "../store/searchSlice";
+import { useSelector } from "react-redux";
 
+import { useDispatch } from "react-redux";
 import { clearFilteredSearch } from "../store/filteredSearchSlice";
+import { clearSearchTerm } from "../store/searchSlice";
+import { useLocation } from "react-router-dom";
 
 import TopRatedWidget from "../components/apartments/TopRatedWidget";
 import FeaturedApartments from "../components/apartments/FeaturedApartments";
@@ -13,16 +15,27 @@ import { useFilteredApartments } from "../hooks/useFilteredApartments";
 
 import useIsMobile from "../hooks/useIsMobile";
 import { useOutletContext } from "react-router-dom";
-import type { Apartment } from "../types/apartment";
+// import type { Apartment } from "../types/apartment";
 
 type SelectedMobileView = "Featured" | "Latest";
 
 export default function HomePage() {
   // const homeQuery = useAllApartments(); // infinite scroll hook to fetch all apartments page by page
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const isMobile = useIsMobile();
   const loaderRef = useRef(null);
+
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  // Reset search + filters when leaving HomePage
+  useEffect(() => {
+    return () => {
+      dispatch(clearFilteredSearch());
+      dispatch(clearSearchTerm());
+    };
+  }, [location.pathname]);
 
   // getting sort-option from Outlet context (set in App.tsx):
   const { sortOption } = useOutletContext<{ sortOption: string }>();
@@ -37,27 +50,31 @@ export default function HomePage() {
   // new filtered search from SearchFilters component, it uses redux-state "filteredSearchSlice" (results are filtered on backend):
   const filters = useSelector((s: any) => s.filteredSearch);
   // s - state, s.filteredSearch - filteredSearchSlice, s.filteredSearch - all filter values from filteredSearchSlice (destination, dates, persons, toggles, accommodation, priceRange)
-  const { searchTriggered } = useSelector((s: any) => s.filteredSearch);
+
+  // const { searchTriggered } = useSelector((s: any) => s.filteredSearch);
+
+  // determine if filtering is active:
+  const hasSearchTerm = !!filters.globalSearch;
+
+  const hasFilters =
+    !!filters.destination ||
+    !!filters.persons ||
+    filters.priceRange[0] !== 0 ||
+    filters.priceRange[1] !== 500 ||
+    !!filters.accommodation ||
+    Object.keys(filters.toggles).length > 0;
+
+  const isFiltering = hasSearchTerm || hasFilters;
+
+  console.log("FILTERS:", filters);
+  console.log("globalSearch:", filters.globalSearch);
+  console.log("isFiltering:", isFiltering);
 
   const [selectedMobileView, setSelectedMobileView] =
     useState<SelectedMobileView>("Featured");
 
-  // new - backend search custom hook "useFilteredApartments" - it uses filters from filteredSearchSlice
-  const { data: filteredData } = useFilteredApartments(
-    filters,
-    searchTriggered,
-  );
-
-  // clean filters when HomePage-component is loaded again, or when user returns back from Home:
-  useEffect(() => {
-    dispatch(clearFilteredSearch());
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      dispatch(clearFilteredSearch());
-    };
-  }, []);
+  // backend filtered data:
+  const { data: filteredData } = useFilteredApartments(filters);
 
   // Flatten all pages (received from useAllApartments infinite scroll custom hook) into a single array of apartments:
   const pages = homeQuery.data?.pages ?? [];
@@ -65,24 +82,9 @@ export default function HomePage() {
 
   // choose data source:
   // const results = searchTriggered ? (filteredData?.items ?? []) : allApartments;
-  const baseResults = searchTriggered
-    ? (filteredData?.items ?? [])
-    : allApartments;
+  const baseResults = isFiltering ? (filteredData?.items ?? []) : allApartments;
 
-
-  // LOCAL searchTerm filtering (global search):
-  const searchTermFiltered = baseResults.filter((apt: Apartment) => {
-    if (!searchTerm) return true;
-    const q = searchTerm.toLowerCase();
-    return (
-      apt.name.toLowerCase().includes(q) ||
-      apt.location.toLowerCase().includes(q) ||
-      apt.category.toLowerCase().includes(q)
-      // || apt.tags?.some((tag) => tag.toLowerCase().includes(q))
-    );
-  });
-
-  const sorted = [...searchTermFiltered].sort((a, b) => {
+  const sorted = [...baseResults].sort((a, b) => {
     switch (sortOption) {
       case "price":
         return a.price_per_night - b.price_per_night;
@@ -104,7 +106,8 @@ export default function HomePage() {
 
   // 🔥 INFINITE SCROLL (* only disabled when searching)
   useEffect(() => {
-    if (searchTriggered) return; // disable infinite scroll during search
+    // if (searchTriggered) return; // disable infinite scroll during search
+    if (isFiltering) return;
     if (sortOption !== "") return;
     if (!loaderRef.current) return;
     if (!homeQuery.fetchNextPage) return;
@@ -127,7 +130,8 @@ export default function HomePage() {
     observer.observe(loaderRef.current);
     return () => observer.disconnect();
   }, [
-    searchTriggered,
+    // searchTriggered,
+    isFiltering,
     sortOption,
     homeQuery.hasNextPage,
     homeQuery.isFetchingNextPage,
@@ -149,7 +153,7 @@ export default function HomePage() {
               selectedMobileView === "Featured" ? "active" : ""
             }`}
             onClick={() => {
-              dispatch(clearSearchTerm());
+              // dispatch(clearSearchTerm());
               setSelectedMobileView("Featured");
             }}
           >
@@ -161,7 +165,7 @@ export default function HomePage() {
               selectedMobileView === "Latest" ? "active" : ""
             }`}
             onClick={() => {
-              dispatch(clearSearchTerm());
+              // dispatch(clearSearchTerm());
               setSelectedMobileView("Latest");
             }}
           >

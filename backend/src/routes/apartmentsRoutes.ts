@@ -141,6 +141,25 @@ router.get("/filter", (req, res) => {
 
     let results = fetchAllApartments();
 
+    // GLOBAL SEARCH (searchTerm)
+    if (req.query.search && typeof req.query.search === "string") {
+      const q = req.query.search.toLowerCase();
+
+      results = results.filter((apt) => {
+        const name = apt.name?.toLowerCase() || "";
+        const location = apt.location?.toLowerCase() || "";
+        const category = apt.category?.toLowerCase() || "";
+        // const description = apt.description?.toLowerCase() || "";
+        // const tags = apt.tags?.map((t) => t.toLowerCase()) || [];
+
+        return (
+          name.includes(q) || location.includes(q) || category.includes(q)
+          // || description.includes(q) ||
+          // tags.some((t) => t.includes(q))
+        );
+      });
+    }
+
     // destination
     if (destination && typeof destination === "string") {
       const dest = destination.toLowerCase();
@@ -195,7 +214,6 @@ router.get("/filter", (req, res) => {
       page: Number(page),
       pageSize: Number(pageSize),
     });
-    
   } catch (err) {
     res.status(500).json({ error: "Failed to filter apartments" });
   }

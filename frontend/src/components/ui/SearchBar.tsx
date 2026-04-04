@@ -1,25 +1,24 @@
 // import { useState } from "react";
 import { useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setSearchTerm, clearSearchTerm } from "../../store/searchSlice";
+import { setSearchTerm } from "../../store/searchSlice";
+import { setFilteredSearch } from "../../store/filteredSearchSlice";
 import { useLocation } from "react-router-dom";
 
 import useIsMobile from "../../hooks/useIsMobile";
 import ApartmentsTitle from "./ApartmentsMainTitle";
 import SearchButton from "./SearchButton";
 
-type SearchBarProps = { className?: string; onSearch?: (term: string) => void;  };   
+type SearchBarProps = { className?: string; onSearch?: (term: string) => void };
 
-export default function SearchBar({ className, onSearch }: SearchBarProps) {    
-
-
+export default function SearchBar({ className, onSearch }: SearchBarProps) {
   const dispatch = useDispatch();
   const location = useLocation();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    dispatch(clearSearchTerm());
+    // dispatch(clearSearchTerm());
     if (inputRef.current) {
       inputRef.current.value = "";
     }
@@ -27,14 +26,20 @@ export default function SearchBar({ className, onSearch }: SearchBarProps) {
 
   const handleSearch = () => {
     const value = inputRef.current?.value ?? "";
+    // dispatch(setSearchTerm(value));
+
+    // 1. save searchTerm for highlighting:
     dispatch(setSearchTerm(value));
 
-    onSearch?.(value);  
+    // 2. trigger backend search:
+    dispatch(setFilteredSearch({ globalSearch: value }));
+    // dispatch(setSearchTriggered());
 
+    onSearch?.(value);
 
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
+    // if (inputRef.current) {
+    //   inputRef.current.value = "";
+    // }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -57,7 +62,12 @@ export default function SearchBar({ className, onSearch }: SearchBarProps) {
       {!isMobile && <ApartmentsTitle variant="searchbar" />}
 
       <div className="search-field">
-        <img className="search-field__img" src={iconSource} alt="Search-icon"  onClick={focusInput} />
+        <img
+          className="search-field__img"
+          src={iconSource}
+          alt="Search-icon"
+          onClick={focusInput}
+        />
 
         <input
           ref={inputRef}

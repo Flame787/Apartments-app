@@ -8,7 +8,8 @@ export type FilteredSearchState = {
   toggles: Record<string, boolean>;
   accommodation: string;
   priceRange: [number, number];
-  searchTriggered: boolean;
+  // searchTriggered: boolean;
+  globalSearch: string;
 };
 
 const initialState: FilteredSearchState = {
@@ -18,7 +19,8 @@ const initialState: FilteredSearchState = {
   toggles: {},
   accommodation: "",
   priceRange: [0, 500],
-  searchTriggered: false
+  // searchTriggered: false,
+  globalSearch: "",
 };
 
 const filteredSearchSlice = createSlice({
@@ -34,16 +36,20 @@ const filteredSearchSlice = createSlice({
     clearFilteredSearch() {
       return initialState;
     },
-    setSearchTriggered(state) {
-      state.searchTriggered = true;
-    },
+    // setSearchTriggered(state) {
+    //   state.searchTriggered = true;
+    // },
 
-    resetSearchTriggered(state) {
-      state.searchTriggered = false;
-    },
+    // resetSearchTriggered(state) {
+    //   state.searchTriggered = false;
+    // },
   },
 });
 
-export const { setFilteredSearch, clearFilteredSearch, setSearchTriggered, resetSearchTriggered } =
-  filteredSearchSlice.actions;
+export const {
+  setFilteredSearch,
+  clearFilteredSearch,
+  // setSearchTriggered,
+  // resetSearchTriggered,
+} = filteredSearchSlice.actions;
 export default filteredSearchSlice.reducer;

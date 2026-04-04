@@ -1,11 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
-// import { setFilteredSearch } from "../../store/filteredSearchSlice";
-import {
-  setFilteredSearch,
-  setSearchTriggered,
-  // resetSearchTriggered,
-} from "../../store/filteredSearchSlice";
+import { setFilteredSearch } from "../../store/filteredSearchSlice";
 
 import FiltersModal from "./FiltersModal";
 import CalendarModal from "./CalendarModal";
@@ -69,7 +64,7 @@ export default function SearchFilters() {
         persons,
       }),
     );
-    dispatch(setSearchTriggered());
+    // dispatch(setSearchTriggered());
   }, [destination, dates, persons, dispatch]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -124,6 +119,7 @@ export default function SearchFilters() {
                   onClick={() => {
                     setDestination(loc);
                     setShowLocationsDropdown(false);
+                    triggerSearch();
                   }}
                 >
                   {loc}
@@ -164,6 +160,7 @@ export default function SearchFilters() {
                   onClick={() => {
                     setPersons(String(num));
                     setShowPersonsDropdown(false);
+                    triggerSearch();
                   }}
                 >
                   {num}
@@ -204,7 +201,7 @@ export default function SearchFilters() {
                 ...filters, // adds filters to search terms
               }),
             );
-            dispatch(setSearchTriggered());
+            // dispatch(setSearchTriggered());
             setIsModalOpen(false);
           }}
         />
@@ -217,6 +214,7 @@ export default function SearchFilters() {
             const formatted = `${startDate.toLocaleDateString("hr-HR")}-${endDate.toLocaleDateString("hr-HR")}`;
             setDates(formatted);
             setIsDateModalOpen(false);
+            triggerSearch();
           }}
         />
       )}

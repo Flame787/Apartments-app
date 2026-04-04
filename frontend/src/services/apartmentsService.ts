@@ -48,6 +48,10 @@ export async function getTopRatedApartments(page: number, pageSize: number) {
 export async function getFilteredApartments(filters: any) {
   const params = new URLSearchParams();
 
+   // for global search by searchTerm (from SearchBar component):
+  if (filters.globalSearch) params.append("search", filters.globalSearch);    
+
+  // for search by filters from SearchFilters component:
   if (filters.destination) params.append("destination", filters.destination);
   if (filters.persons) params.append("persons", filters.persons);
   if (filters.priceRange) {
