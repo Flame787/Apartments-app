@@ -29,7 +29,7 @@ body {
 .layout {
   display: flex;
   justify-content: center;
-  flex: 1;
+  flex: 1;   // Allow the layout to grow and fill the available space
   margin-bottom: 50px;
 }
 

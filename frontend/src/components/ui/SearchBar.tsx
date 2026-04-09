@@ -53,7 +53,7 @@ export default function SearchBar({ className, onSearch }: SearchBarProps) {
   };
 
   const isMobile = useIsMobile();
-  const iconSource = `/icons/Search.png`;
+  const iconSource = `/icons/Search4.png`;
 
   return (
     <div className={`searchbar ${className ?? ""}`}>
