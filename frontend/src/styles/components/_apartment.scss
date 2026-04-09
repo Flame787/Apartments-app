@@ -83,6 +83,10 @@
     margin: 12px auto 0 0;
     font-size: 12px;
     width: 100%;
+    background-color: #b1dbf900;
+    background-image: linear-gradient(90deg, #bbe0fb00 0%, #f1f4f700 100%);
+    padding-left: 0px;
+    padding-right: 0px;
   }
   &-content {
     margin-top: 16px;
@@ -159,8 +163,9 @@
   @include text-style(600, 14px, 100%, -0.07px);
   margin-right: 10px;
   color: $darkblue;
-  background-color: $lightblue;
-  background-color: $widgetblue;
+  // background-color: $lightblue;
+  // background-color: $widgetblue;
+  background-color: #c8e5fa;
   padding: 6px 8px;
   border-radius: 6px;
 }

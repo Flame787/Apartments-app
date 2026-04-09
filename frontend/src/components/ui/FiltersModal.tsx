@@ -97,7 +97,7 @@ export default function FiltersModal({
           </div>
         </div>
 
-        <div className="filters-modal__section">
+        <div className="filters-modal__section accommodation-section">
           <h3>Accommodation type</h3>
 
           {/* Accommodation type dropdown */}

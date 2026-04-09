@@ -32,14 +32,16 @@
   @include flex-center;
   cursor: pointer;
   transition: transform 0.15s ease;
+  background: rgba(255, 0, 0, 0) !important;
 
   padding: 2px;
   border-radius: 6px;
-  border: 2px solid $icon;
+  // border: 2px solid $darkblue;
   transition: transform 0.15s ease;
 
   &:hover {
     transform: scale(1.08);
+    // background-color: $lightblue;
   }
 
   &__img {
@@ -281,6 +283,9 @@ button.rdrDay.rdrDayToday {
   cursor: pointer;
   background: #ddecfe;
   transition: transform 0.15s ease;
+  background-color: #c8e5fa;
+  @include text-style(600, 14px, 100%, -0.07px);
+  color: $darkblue;
 }
 
 .toggle-btn.active {

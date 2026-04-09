@@ -24,9 +24,9 @@ export default function ApartmentCard({
   const iconSource = `/icons/location.svg`;
 
   return (
-    <div className="apartment-card">
+    <div className="apartment-card" onClick={handleOpen}>
       {/* IMAGE */}
-      <div className="apartment-card-picture" onClick={handleOpen}>
+      <div className="apartment-card-picture">
         {apartment.images?.[0] ? (
           <img
             // src={apartment.images[0]}

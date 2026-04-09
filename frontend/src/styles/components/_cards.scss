@@ -67,9 +67,10 @@
     align-items: center;
     // width: 100%;
     // border-bottom: 1px solid rgba(81, 119, 159, 0.22);
- 
+
     background-color: #b1dbf9;
-    background-image: linear-gradient(90deg, #bbe0fb 0%, #f1f4f7 100%);
+    // background-image: linear-gradient(90deg, #bbe0fb 0%, #f1f4f7 100%);
+    background-image: linear-gradient(90deg, #ceeafd 0%, #f1f4f7 100%);
   }
   &-icon {
     cursor: pointer;
@@ -137,6 +138,12 @@
   }
 }
 
+.apartment-card:hover {
+  cursor: pointer;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  background-color: #ebf1f8;
+}
+
 .toprated-apartments-widget {
   width: 343px;
   height: 529px;
@@ -149,9 +156,13 @@
   background-color: $widgetblue;
 
   // new:
-  background-image: url("/src/assets/images/sea17.jpg");
-  background-size: cover;
-  background-position: center;
+  // background-image: url("/src/assets/images/sea17.jpg");
+  // background-size: cover;
+  // background-position: center;
+
+  // background-image: linear-gradient(90deg, #bbe0fb 0%, #f1f4f751 100%);
+
+  background-color: #e0f0fd;
 
   &-header {
     flex-direction: row;
@@ -268,6 +279,10 @@
 
 .toprated-apartment-title {
   cursor: pointer;
+}
+
+.toprated-apartment-title:hover {
+  background-color: #ebf1f8;
 }
 
 //------------------------------
@@ -510,7 +525,8 @@
 }
 
 .toprated-title {
-  margin-top: 15px;
+  // margin-top: 15px;
+  padding-top: 15px;
 }
 
 .toprated-rating {
@@ -519,8 +535,9 @@
   gap: 2px;
   color: $dark;
   @include text-style(400, 14px, 100%, -0.07px);
-  margin-bottom: 8px;
+
   padding: 10px;
+  padding-bottom: 8px;
   border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
   border-bottom: 1px solid rgb(81 119 159 / 22%);
 }
