@@ -21,6 +21,8 @@ export default function ApartmentCard({
     navigate(`/apartment/${apartment.id}`, { state: { apartment } });
   };
 
+  const iconSource = `/icons/location.svg`;
+
   return (
     <div className="apartment-card">
       {/* IMAGE */}
@@ -60,6 +62,11 @@ export default function ApartmentCard({
           <div className="apartment-card-lower-box-left">
             {/* LOCATION + FAVORITE (desktop) */}
             <div className="apartment-card-location">
+              <img
+                src={iconSource}
+                style={{ marginRight: "4px", height: "14px", width: "auto" }}
+                alt="Location icon"
+              />
               <span>
                 {highlight
                   ? highlightResults(apartment.location, highlight)
@@ -84,7 +91,7 @@ export default function ApartmentCard({
                 alt="Top rated"
                 className="rating-icon"
               />{" "}
-              <strong>{apartment.rating.toFixed(1)}{" "}</strong>
+              <strong>{apartment.rating.toFixed(1)} </strong>
               <span className="reviews">({apartment.reviews_count})</span>
             </div>
 

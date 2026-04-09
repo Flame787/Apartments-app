@@ -34,6 +34,8 @@ export default function FullApartment({
     );
   };
 
+  const iconSource = `/icons/location.svg`;
+
   return (
     <div className="apartment-full">
       {/* IMAGE CAROUSEL */}
@@ -79,6 +81,11 @@ export default function FullApartment({
 
       {/* LOCATION */}
       <div className="apartment-full-location">
+        <img
+          src={iconSource}
+          style={{ marginRight: "4px", height: "18px", width: "auto" }}
+          alt="Location icon"
+        />
         <strong>
           {highlight
             ? highlightResults(apartment.location, highlight)
@@ -149,8 +156,6 @@ export default function FullApartment({
           onClick={() => setIsDateModalOpen(true)}
         />
       </div>
-
-      
 
       <ProceedButton />
 

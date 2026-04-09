@@ -30,7 +30,7 @@ export default function TopRatedWidget() {
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const iconSource = `/icons/toprated.svg`;
-  const iconSource2 = `/icons/Arrow2.png`;
+  const iconSource2 = `/icons/Arrow3.svg`;
 
   return (
     <div className="toprated-apartments-widget apartment-grid-3">
@@ -63,10 +63,11 @@ export default function TopRatedWidget() {
         className="toprated-apartments-widget-footer"
         onClick={() => navigate("/top-rated")}
       >
-        See all top rated accommodations
+        See all top rated accommodations 
         <img
           className="toprated-apartments-widget-header-icon"
           src={iconSource2}
+          style={{ marginLeft: "8px" }}
           alt="Right arrow"
         />
       </div>

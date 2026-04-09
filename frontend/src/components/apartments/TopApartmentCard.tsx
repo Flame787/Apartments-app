@@ -20,6 +20,8 @@ export default function TopApartmentCard({
     navigate(`/apartment/${apartment.id}`, { state: { apartment } });
   };
 
+  const iconSource = `/icons/location.svg`;
+
   return (
     <div className="apartment-card">
       {/* IMAGE */}
@@ -66,6 +68,11 @@ export default function TopApartmentCard({
 
       {/* LOCATION + FAVORITE (desktop) */}
       <div className="apartment-card-location">
+        <img
+          src={iconSource}
+          style={{ marginRight: "4px", height: "14px", width: "auto" }}
+          alt="Location icon"
+        />
         <span>{apartment.location}</span>
         {!isMobile && <FavoriteButton apartment={apartment} />}
       </div>

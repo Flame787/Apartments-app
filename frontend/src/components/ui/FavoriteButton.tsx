@@ -39,11 +39,29 @@ export default function FavoriteButton({ apartment }: FavoriteButtonProps) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <img
+      {/* <img
         className={`apartment-card-icon ${isActive ? "active" : ""}`}
-        src="/icons/favorite.svg"
+        src="/icons/favorite2.svg"
         alt="Add to favorites"
-      />
+       style={{ background: "transparent" }}
+      /> */}
+
+      <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="30"
+    height="30"
+    viewBox="0 0 80 80"
+    className={`apartment-card-icon ${isActive ? "active" : ""}`}
+  >
+    <circle cx="40" cy="40" r="36" fill="#d32f2f"/>
+    <path
+      d="M40 59 C25 49 20 39 20 34 C20 28 25 24 32 24 C36 24 39 26 40 28 C41 26 44 24 48 24 C55 24 60 28 60 34 C60 39 55 49 40 59 Z"
+      fill="none"
+      stroke="#ffffff"
+      strokeWidth="4"
+      strokeLinejoin="round"
+    />
+  </svg>
 
       {hovered && (
         <span className="favorite-label">

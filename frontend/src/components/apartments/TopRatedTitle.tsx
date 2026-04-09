@@ -17,6 +17,8 @@ export default function TopRatedTitle({
     navigate(`/apartment/${apartment.id}`, { state: { apartment } });
   };
 
+  const iconSource = `/icons/location.svg`;
+
   return (
     <div className="toprated-apartment-title" onClick={handleOpen}>
       <div className="apartment-card-title toprated-title">
@@ -26,6 +28,11 @@ export default function TopRatedTitle({
       </div>
 
       <div className="apartment-card-location toprated-location">
+        <img
+          src={iconSource}
+          style={{ marginRight: "4px", height: "14px", width: "auto" }}
+          alt="Location icon"
+        />
         {apartment.location}
       </div>
 
@@ -35,7 +42,8 @@ export default function TopRatedTitle({
           alt="Top rated"
           className="rating-icon"
         />{" "}
-        <strong>{apartment.rating.toFixed(1)}</strong> ({apartment.reviews_count})
+        <strong>{apartment.rating.toFixed(1)}</strong> (
+        {apartment.reviews_count})
       </div>
     </div>
   );

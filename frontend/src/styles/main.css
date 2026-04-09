@@ -347,6 +347,10 @@ body {
   background-color: #f1f4f7;
 }
 
+.apartment-card-button {
+  background: rgba(255, 0, 0, 0) !important;
+}
+
 .run-search-filtered-button {
   display: block;
   margin: 0 0 16px 0;
@@ -455,7 +459,8 @@ button.rdrDay.rdrDayToday {
 }
 
 .apartments-mobile-featured,
-.apartments-mobile-toprated-page {
+.apartments-mobile-toprated-page,
+.apartments-mobile-latest-page {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -500,7 +505,6 @@ button.rdrDay.rdrDayToday {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 308px;
   font-family: "Manrope", sans-serif;
   font-weight: 700;
   font-size: 10px;
@@ -508,10 +512,16 @@ button.rdrDay.rdrDayToday {
   letter-spacing: -0.02px;
   text-transform: uppercase;
   color: #115ba5;
-  margin: 8px auto 2px 17px;
+  margin: 0px auto 5px 0px;
+  padding-left: 17px;
+  padding-right: 14px;
+  padding-top: 3px;
+  padding-bottom: 2px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #b1dbf9;
+  background-image: linear-gradient(90deg, #bbe0fb 0%, #f1f4f7 100%);
 }
 .apartment-card-icon {
   cursor: pointer;
@@ -563,6 +573,8 @@ button.rdrDay.rdrDayToday {
   font-size: 14px;
   line-height: 100%;
   letter-spacing: -0.07px;
+  display: flex;
+  align-items: center;
 }
 .apartment-card-rating {
   display: flex;
@@ -595,6 +607,9 @@ button.rdrDay.rdrDayToday {
   border-radius: 10px;
   margin: 0;
   background-color: #ddecfe;
+  background-image: url("/src/assets/images/sea17.jpg");
+  background-size: cover;
+  background-position: center;
 }
 .toprated-apartments-widget-header {
   flex-direction: row;
@@ -797,8 +812,9 @@ button.rdrDay.rdrDayToday {
     height: 140px;
   }
   .apartment-card-category {
-    margin: 11px auto 2px 12px;
-    width: 295px;
+    margin: 0px 0px 5px 0px;
+    padding-right: 12px;
+    padding-left: 12px;
   }
   .apartment-card-title {
     margin-left: 12px;
@@ -842,7 +858,7 @@ button.rdrDay.rdrDayToday {
     margin-left: 12px;
   }
   .apartment-card-location {
-    margin-bottom: 6px;
+    margin-bottom: 10px;
   }
   .carousel-wrapper {
     width: 654px;
@@ -870,9 +886,6 @@ button.rdrDay.rdrDayToday {
   .apartment-card-picture img {
     width: 270px;
     height: 140px;
-  }
-  .apartment-card-category {
-    width: 245px;
   }
   .apartment-card-title {
     font-size: 14px;
@@ -930,6 +943,11 @@ button.rdrDay.rdrDayToday {
   margin-bottom: 8px;
   padding: 10px;
   border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
+  border-bottom: 1px solid rgba(81, 119, 159, 0.22);
+}
+
+.toprated-location {
+  margin-bottom: 0px;
 }
 
 .apartment-page {
@@ -939,7 +957,6 @@ button.rdrDay.rdrDayToday {
 .apartment-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 252px;
   gap: 22px;
   margin: 24px 0 0 0;
 }
@@ -992,6 +1009,8 @@ button.rdrDay.rdrDayToday {
   font-size: 16px;
   line-height: 100%;
   letter-spacing: -0.07px;
+  display: flex;
+  align-items: center;
   color: #1D1D1B;
   color: #115ba5;
   margin-top: 6px;
@@ -1043,8 +1062,8 @@ button.rdrDay.rdrDayToday {
   margin-bottom: 10px;
   padding-top: 15px;
   padding-bottom: 15px;
-  border-top: 1px solid #A5A5A4;
-  border-bottom: 1px solid #A5A5A4;
+  border-top: 1px solid rgba(81, 119, 159, 0.22);
+  border-bottom: 1px solid rgba(81, 119, 159, 0.22);
 }
 .apartment-full-calendar {
   margin-top: 8px;
@@ -1128,7 +1147,6 @@ button.rdrDay.rdrDayToday {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
   flex-direction: row;
   margin: 0 16px 0;
 }
@@ -1163,6 +1181,9 @@ button.rdrDay.rdrDayToday {
   background-color: #ddecfe;
   border-radius: 10px;
   margin-top: 20px;
+  background-image: url("/src/assets/images/sea15.jpg");
+  background-size: cover;
+  background-position: center;
 }
 @media (min-width: 1024px) {
   .search-field {
@@ -1286,6 +1307,9 @@ button.rdrDay.rdrDayToday {
   background-color: #ddecfe;
   border-radius: 10px;
   width: 343px;
+  background-image: url("/src/assets/images/sea15.jpg");
+  background-size: cover;
+  background-position: center;
 }
 @media (min-width: 1024px) {
   .search-filters-box {
@@ -1303,6 +1327,7 @@ button.rdrDay.rdrDayToday {
   padding: 10px 14px;
   margin: 5px 0px;
   border: 1px solid #dcdcdc;
+  border: 1px solid rgba(220, 220, 220, 0);
   border-radius: 10px;
   font-size: 14px;
   background: #fff;
@@ -1510,7 +1535,7 @@ button.rdrDay.rdrDayToday {
   margin: 20px auto 0;
   padding-top: 10px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
+  border-bottom: 1px solid rgba(81, 119, 159, 0.22);
 }
 
 .sorting-box {
@@ -1527,6 +1552,9 @@ button.rdrDay.rdrDayToday {
   z-index: 200;
   background-color: #ddecfe;
   color: #115ba5;
+  background-image: url("/src/assets/images/sea15.jpg");
+  background-size: cover;
+  background-position: center;
 }
 @media (min-width: 1024px) {
   .sorting-box {
@@ -1917,7 +1945,6 @@ button.rdrDay.rdrDayToday {
 .homepage-desktop {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 252px;
   gap: 22px;
   margin: 24px 0 0 0;
 }

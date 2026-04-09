@@ -72,6 +72,8 @@
 
   &-location {
     @include text-style(400, 16px, 100%, -0.07px);
+    display: flex;
+    align-items: center;
     color: $dark;
     color: $darkblue;
     margin-top: 6px;
@@ -132,8 +134,10 @@
     margin-bottom: 10px;
     padding-top: 15px;
     padding-bottom: 15px;
-    border-top: 1px solid $darkgray;
-    border-bottom: 1px solid $darkgray;
+    // border-top: 1px solid $darkgray;
+    // border-bottom: 1px solid $darkgray;
+    border-top: 1px solid rgba(81, 119, 159, 0.22);
+    border-bottom: 1px solid rgba(81, 119, 159, 0.22);
   }
 
   &-calendar {

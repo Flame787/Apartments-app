@@ -8,7 +8,9 @@
   // MOBILE - Homepage:
   @include flex-center;
 
-  border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
+  // border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
+  
+  // border-bottom: 1px solid rgba(81, 119, 159, 0.22);
 
   flex-direction: row;
   margin: 0 16px 0;
@@ -47,6 +49,11 @@
   background-color: #ddecfe;
   border-radius: 10px;
   margin-top: 20px;
+
+  // new: 
+  background-image: url("/src/assets/images/sea15.jpg");
+  background-size: cover;       
+  background-position: center; 
 
   // desktop:
   @media (min-width: 1024px) {
@@ -184,6 +191,11 @@
   border-radius: 10px;
   width: 343px;
 
+  // new:
+  background-image: url("/src/assets/images/sea15.jpg");
+  background-size: cover;       
+  background-position: center; 
+
   @media (min-width: 1024px) {
     flex-direction: row;
     width: 1100px;
@@ -199,6 +211,7 @@
   padding: 10px 14px;
   margin: 5px 0px;
   border: 1px solid #dcdcdc;
+  border: 1px solid #dcdcdc00;
   // opacity: 70%;
   border-radius: 10px;
   font-size: 14px;
@@ -430,7 +443,8 @@
   margin: 20px auto 0;
   padding-top: 10px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
+  // border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
+  border-bottom: 1px solid rgba(81, 119, 159, 0.22);
 }
 
 .sorting-box {
@@ -449,6 +463,11 @@
   background-color: #ddecfe;
   color: #115ba5;
   // border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
+
+  // new:
+  background-image: url("/src/assets/images/sea15.jpg");
+  background-size: cover;       
+  background-position: center; 
 
   @media (min-width: 1024px) {
     width: fit-content;

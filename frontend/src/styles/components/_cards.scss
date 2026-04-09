@@ -4,7 +4,8 @@
 // MOBILE:
 
 .apartments-mobile-featured,
-.apartments-mobile-toprated-page {
+.apartments-mobile-toprated-page,
+.apartments-mobile-latest-page {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -51,15 +52,24 @@
 
   &-category {
     @include flex-center;
-    width: 308px;
+    // width: 308px;
     @include text-style(700, 10px, 16px, -0.02px);
     text-transform: uppercase;
     color: $darkblue;
-    margin: 8px auto 2px 17px;
+    // margin: 8px auto 2px 17px;
+    margin: 0px auto 5px 0px;
+    padding-left: 17px;
+    padding-right: 14px;
+    padding-top: 3px;
+    padding-bottom: 2px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     // width: 100%;
+    // border-bottom: 1px solid rgba(81, 119, 159, 0.22);
+ 
+    background-color: #b1dbf9;
+    background-image: linear-gradient(90deg, #bbe0fb 0%, #f1f4f7 100%);
   }
   &-icon {
     cursor: pointer;
@@ -93,6 +103,7 @@
     line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
+    // border-bottom: 1px solid rgba(81, 119, 159, 0.22);
   }
 
   &-content {
@@ -109,6 +120,8 @@
     margin-bottom: 2px;
     color: $darkblue;
     @include text-style(600, 14px, 100%, -0.07px);
+    display: flex;
+    align-items: center;
   }
   &-rating {
     @include flex-center;
@@ -134,6 +147,11 @@
   // background-color: $white;
   // background-color: #e0eefb;
   background-color: $widgetblue;
+
+  // new:
+  background-image: url("/src/assets/images/sea17.jpg");
+  background-size: cover;
+  background-position: center;
 
   &-header {
     flex-direction: row;
@@ -348,8 +366,11 @@
     }
 
     &-category {
-      margin: 11px auto 2px 12px;
-      width: 295px;
+      margin: 0px 0px 5px 0px;
+      padding-right: 12px;
+      padding-left: 12px;
+
+      // width: 295px;
     }
     &-title {
       margin-left: 12px;
@@ -404,7 +425,7 @@
   }
 
   .apartment-card-location {
-    margin-bottom: 6px;
+    margin-bottom: 10px;
   }
 
   .carousel-wrapper {
@@ -440,9 +461,9 @@
     height: 140px;
   }
 
-  .apartment-card-category {
-    width: 245px;
-  }
+  // .apartment-card-category {
+  // width: 245px;
+  // }
   .apartment-card-title {
     font-size: 14px;
   }
@@ -501,4 +522,9 @@
   margin-bottom: 8px;
   padding: 10px;
   border-bottom: 1px solid rgba(151, 151, 151, 0.0901960784);
+  border-bottom: 1px solid rgb(81 119 159 / 22%);
+}
+
+.toprated-location {
+  margin-bottom: 0px;
 }
