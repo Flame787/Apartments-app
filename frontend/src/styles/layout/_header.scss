@@ -174,3 +174,15 @@
     margin-right: 30px;
   }
 }
+
+@media (max-width: 1199px) {
+  .myapartments-title--searchbar {
+    margin-right: 0px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .myapartments-title--searchbar {
+    margin: 0px auto;
+  }
+}

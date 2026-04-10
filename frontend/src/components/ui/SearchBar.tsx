@@ -8,10 +8,21 @@ import { useLocation } from "react-router-dom";
 import useIsMobile from "../../hooks/useIsMobile";
 import ApartmentsTitle from "./ApartmentsMainTitle";
 import SearchButton from "./SearchButton";
+import SortingBox from "./SortingBox";
 
-type SearchBarProps = { className?: string; onSearch?: (term: string) => void };
+type SearchBarProps = {
+  className?: string;
+  onSearch?: (term: string) => void;
+  onSortChange?: (value: string) => void;
+  showSorting?: boolean;
+};
 
-export default function SearchBar({ className, onSearch }: SearchBarProps) {
+export default function SearchBar({
+  className,
+  onSearch,
+  onSortChange,
+  showSorting = true,
+}: SearchBarProps) {
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -54,6 +65,7 @@ export default function SearchBar({ className, onSearch }: SearchBarProps) {
 
   const isMobile = useIsMobile();
   const iconSource = `/icons/Search5.svg`;
+  const shouldShowSorting = showSorting && typeof onSortChange === "function";
 
   return (
     <div className={`searchbar ${className ?? ""}`}>
@@ -80,6 +92,8 @@ export default function SearchBar({ className, onSearch }: SearchBarProps) {
 
         <SearchButton onSearch={handleSearch} />
       </div>
+
+      {shouldShowSorting && <SortingBox onSortChange={onSortChange!} />}
     </div>
   );
 }

@@ -25,7 +25,11 @@ export default function CategoriesMobile({ onClose }: CategoriesMobileProps) {
         <div className="categories-modal__top-div">
           <ApartmentsMainTitle variant="categories" />
 
-          <SearchBar className="searchbar-modal__categories" onSearch={handleSearch}/>
+          <SearchBar
+            className="searchbar-modal__categories"
+            onSearch={handleSearch}
+            showSorting={false}
+          />
         </div>
 
         <CategoriesList />
