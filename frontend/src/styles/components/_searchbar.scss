@@ -15,6 +15,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 40px;
+  gap: 20px;
   margin: 0 16px 0;
 
   // desktop:
@@ -53,17 +54,11 @@
   border-radius: 10px;
   margin-top: 20px;
 
-  // new:
-  // background-image: url("/src/assets/images/sea15.jpg");
-  // background-size: cover;
-  // background-position: center;
-  // background-image: linear-gradient(90deg, #bbe0fb 0%, #f1f4f751 100%);
-
   // desktop:
   @media (min-width: 1024px) {
     // width: 675px;
     // width: 830px;
-    width: 400px;
+    width: 450px;
     // margin-bottom: 30px;
     margin-top: 0px;
   }
@@ -570,14 +565,6 @@
   color: $darkblue;
   background-color: #e9f4fd;
 
-  // background-image: linear-gradient(90deg, #ceeafd 0%, #f1f4f7 100%);
-
-  // custom arrow:
-  // background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>");
-  // background-repeat: no-repeat;
-  // background-position: right 10px center;
-  // background-size: 12px;
-
   // combination of 2 background-images in same element: custom arrow and gradient:
   background-image:
     url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 20 20' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M5.516 7.548l4.484 4.484 4.484-4.484L16 8.548l-6 6-6-6z'/></svg>"),
@@ -624,7 +611,7 @@
 
   @media (min-width: 1024px) {
     left: 85px;
-    top: 46px;
+    top: 45px;
   }
 }
 

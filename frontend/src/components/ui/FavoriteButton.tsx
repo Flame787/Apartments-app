@@ -22,7 +22,11 @@ export default function FavoriteButton({ apartment }: FavoriteButtonProps) {
 
   const [hovered, setHovered] = useState(false);
 
-  const handleFavorite = () => {
+  const handleFavorite = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation(); 
+    // preventing click on Favorite-button from propagating to card and opening new page: FullApartment.
+    // (otherwise full ApartmentCard is clickable and opens new page, but we need to prevent that when clicking on FavoriteButton)
+
     if (isFavorite) {
       dispatch(removeFromFavorites(apartment.id));
     } else {

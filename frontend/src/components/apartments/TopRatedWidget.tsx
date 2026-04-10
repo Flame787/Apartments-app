@@ -8,13 +8,16 @@ export default function TopRatedWidget() {
   const navigate = useNavigate();
 
   const loaderRef = useRef<HTMLDivElement | null>(null);
+  // loaderRef is needed for infinite scroll - the element that IntersectionObserver will observe, and when it becomes visible, we will trigger loading next page of results.
+  const bodyRef = useRef<HTMLDivElement | null>(null);
+  // bodyRef is needed as root for IntersectionObserver, because we need to observe scrolling inside this widget, not whole page.
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useTopRatedApartments();
 
   // infinite scroll observer
   useEffect(() => {
-    if (!loaderRef.current) return;
+    if (!loaderRef.current || !bodyRef.current) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -22,7 +25,8 @@ export default function TopRatedWidget() {
           fetchNextPage();
         }
       },
-      { threshold: 1 }
+      { root: bodyRef.current, threshold: 0.1 }  
+      // threshold: 0.1 means callback will be triggered when 10% of loaderRef is visible in bodyRef
     );
 
     observer.observe(loaderRef.current);
@@ -45,7 +49,7 @@ export default function TopRatedWidget() {
         </div>
       </div>
 
-      <div className="toprated-apartments-widget-body">
+      <div ref={bodyRef} className="toprated-apartments-widget-body">
         {data?.pages.flatMap((page) =>
           page.items.map((apartment: Apartment) => (
             <TopRatedTitle
