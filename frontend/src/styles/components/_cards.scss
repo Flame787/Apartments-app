@@ -16,9 +16,14 @@
   width: 343px;
   background-color: $white;
   border-radius: 10px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03);
+  // box-shadow: 0 1px 5px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
 
   &-picture {
     position: relative;
@@ -141,7 +146,9 @@
 .apartment-card:hover {
   cursor: pointer;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-  background-color: #ebf1f8;
+  transform: scale(1.015);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  // background-color: #ebf1f8;
 }
 
 .toprated-apartments-widget {
@@ -153,7 +160,8 @@
   margin: 0;
   // background-color: $white;
   // background-color: #e0eefb;
-  background-color: $widgetblue;
+  // background-color: $widgetblue;
+  background-color: #e0f0fd;
 
   // new:
   // background-image: url("/src/assets/images/sea17.jpg");
@@ -161,8 +169,10 @@
   // background-position: center;
 
   // background-image: linear-gradient(90deg, #bbe0fb 0%, #f1f4f751 100%);
+  background-image: linear-gradient(90deg, #d3e9f7 0%, #ecf2fa 100%);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.07);
 
-  background-color: #e0f0fd;
+  //  background-color: #c8e5fa;
 
   &-header {
     flex-direction: row;

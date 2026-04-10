@@ -101,7 +101,7 @@ export default function FiltersModal({
           <h3>Accommodation type</h3>
 
           {/* Accommodation type dropdown */}
-          <div className="search-filters-box__dropdown-wrapper-accommodation">
+          <div className="search-filters-box__dropdown-wrapper-accommodation search-filters-box-white-modal">
             <input
               className="search-filters-box__input  search-filters-box__input-accommodation"
               placeholder="Accommodation type"

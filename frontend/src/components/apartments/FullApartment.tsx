@@ -147,9 +147,10 @@ export default function FullApartment({
       <div className="apartment-full-availibility">
         <strong>Select dates (check-in — check-out): </strong>
       </div>
-      <div className="apartment-full-calendar">
+      
+      <div className="apartment-full-calendar search-filters-box-white ">
         <input
-          className="search-filters-box__input search-filters-box__input-dates"
+          className="search-filters-box__input search-filters-box__input-dates input-dates-full-apartment"
           placeholder="Date from - to"
           value={selectedDates}
           readOnly
